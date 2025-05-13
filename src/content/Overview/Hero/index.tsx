@@ -1,14 +1,13 @@
 import {
   Box,
-  // Button,
+  Button,
   Container,
   Grid,
   Typography,
   styled
 } from '@mui/material';
 
-// import Link from 'src/components/Link';
-
+// Styled typography components
 const TypographyH1 = styled(Typography)(
   ({ theme }) => `
     font-size: ${theme.typography.pxToRem(50)};
@@ -35,118 +34,88 @@ const LabelWrapper = styled(Box)(
 `
 );
 
-const MuiAvatar = styled(Box)(
+// 3D Button styling with reduced padding
+const StyledButton = styled(Button)(
   ({ theme }) => `
-    width: ${theme.spacing(8)};
-    height: ${theme.spacing(8)};
-    border-radius: ${theme.general.borderRadius};
-    background-color: #e5f7ff;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto ${theme.spacing(2)};
-
-    img {
-      width: 60%;
-      height: 60%;
-      display: block;
-    }
-`
-);
-
-const TsAvatar = styled(Box)(
-  ({ theme }) => `
-    width: ${theme.spacing(8)};
-    height: ${theme.spacing(8)};
-    border-radius: ${theme.general.borderRadius};
-    background-color: #dfebf6;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto ${theme.spacing(2)};
-
-    img {
-      width: 60%;
-      height: 60%;
-      display: block;
-    }
-`
-);
-
-const NextJsAvatar = styled(Box)(
-  ({ theme }) => `
-  width: ${theme.spacing(8)};
-  height: ${theme.spacing(8)};
-  border-radius: ${theme.general.borderRadius};
-  background-color: #dfebf6;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto ${theme.spacing(2)};
-
-    img {
-      width: 60%;
-      height: 60%;
-      display: block;
+    box-shadow: 0 4px ${theme.palette.grey[500]};
+    padding: ${theme.spacing(1)} ${theme.spacing(3)}; /* Reduced padding */
+    transition: all 0.2s ease-in-out;
+    &:active {
+      box-shadow: none;
+      transform: translateY(4px);
     }
 `
 );
 
 function Hero() {
   return (
-    <Container maxWidth="lg" sx={{ textAlign: 'center' }}>
-      <Grid
-        spacing={{ xs: 6, md: 10 }}
-        justifyContent="center"
-        alignItems="center"
-        container
-      >
-        <Grid item md={10} lg={8} mx="auto">
-          <LabelWrapper color="success">Version 1.0.0</LabelWrapper>
-          <TypographyH1 sx={{ mb: 2 }} variant="h1">
-            Bankers Directory
-          </TypographyH1>
-          <TypographyH2
-            sx={{ lineHeight: 1.5, pb: 4 }}
-            variant="h4"
-            color="text.secondary"
-            fontWeight="normal"
-          >
-          "Your trusted gateway to the banking world. Discover institutions, connect with professionals, and build lasting networks in the financial industry."
-          </TypographyH2>
-          {/* <Button
-            component={Link}
-            href="/dashboards/tasks"
-            size="large"
-            variant="contained"
-          >
-            Browse Live Preview
-          </Button> */}
-          {/* <Button
-            sx={{ ml: 2 }}
-            component="a"
-            target="_blank"
-            rel="noopener"
-            href="https://bloomui.com/product/tokyo-free-black-nextjs-typescript-material-ui-admin-dashboard/"
-            size="large"
-            variant="text"
-          >
-            Key Features
-          </Button> */}
-          <Grid container spacing={3} mt={5}>
-            <Grid item md={4}>
-            </Grid>
-            <Grid item md={4}>
-            </Grid>
-            <Grid item md={4}>
-            </Grid>
+    <>
+      <Container maxWidth="lg" sx={{ textAlign: 'center', marginTop: '5rem' }}>
+        <Grid
+          spacing={{ xs: 6, md: 10 }}
+          justifyContent="center"
+          alignItems="center"
+          container
+        >
+          <Grid item md={10} lg={8} mx="auto">
+            <LabelWrapper color="success">Version 1.0.0</LabelWrapper>
+            <TypographyH1 sx={{ mb: 2 }} variant="h1">
+              Bankers Directory
+            </TypographyH1>
+            <TypographyH2
+              sx={{ lineHeight: 1.5, pb: 4 }}
+              variant="h4"
+              color="text.secondary"
+              fontWeight="normal"
+            >
+              "Your trusted gateway to the banking world. Discover institutions, connect with professionals, and build lasting networks in the financial industry."
+            </TypographyH2>
+            {/* 3D Buttons for Login */}
+            <Box display="flex" justifyContent="center" gap={2}>
+              <StyledButton
+                size="large"
+                variant="contained"
+                href="auth/login"
+                sx={{
+                  backgroundColor: '#1a73e8',
+                  color: '#fff',
+                  '&:hover': { backgroundColor: '#155db2' }
+                }}
+              >
+                Login as Admin
+              </StyledButton>
+              <StyledButton
+                size="large"
+                variant="contained"
+                href="auth/login"
+                sx={{
+                  backgroundColor: '#34a853',
+                  color: '#fff',
+                  '&:hover': { backgroundColor: '#2c8c42' }
+                }}
+              >
+                Login as User
+              </StyledButton>
+            </Box>
           </Grid>
         </Grid>
-      </Grid>
-    </Container>
+      </Container>
+      {/* Footer with positioned copyright */}
+      <Box
+        sx={{
+          position: 'fixed',
+          bottom: 0,
+          width: '100%',
+          textAlign: 'center',
+          backgroundColor: '#0A1929',
+          padding: 2,
+          color: '#FFFFFF',
+          fontSize: '0.875rem'
+        }}
+      >
+        © 2025 - F2 Fintech Pvt. Ltd.
+      </Box>
+    </>
   );
 }
 

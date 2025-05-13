@@ -238,7 +238,7 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<MmsTwoToneIcon />}
                   >
-                    Messenger
+                    {/* Messenger */}
                   </Button>
                 </NextLink>
               </ListItem>
@@ -249,7 +249,7 @@ function SidebarMenu() {
           component="div"
           subheader={
             <ListSubheader component="div" disableSticky>
-              Management
+              {/* Management */}
             </ListSubheader>
           }
         >
@@ -324,7 +324,7 @@ function SidebarMenu() {
           component="div"
           subheader={
             <ListSubheader component="div" disableSticky>
-              Components
+              {/* Components */}
             </ListSubheader>
           }
         >
@@ -341,7 +341,7 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<BallotTwoToneIcon />}
                   >
-                    Buttons
+                    {/* Buttons */}
                   </Button>
                 </NextLink>
               </ListItem>
@@ -356,7 +356,7 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<BeachAccessTwoToneIcon />}
                   >
-                    Modals
+                    {/* Modals */}
                   </Button>
                 </NextLink>
               </ListItem>
@@ -371,7 +371,7 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<EmojiEventsTwoToneIcon />}
                   >
-                    Accordions
+                    {/* Accordions */}
                   </Button>
                 </NextLink>
               </ListItem>
@@ -386,7 +386,7 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<FilterVintageTwoToneIcon />}
                   >
-                    Tabs
+                    {/* Tabs */}
                   </Button>
                 </NextLink>
               </ListItem>
@@ -401,7 +401,7 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<HowToVoteTwoToneIcon />}
                   >
-                    Badges
+                    {/* Badges */}
                   </Button>
                 </NextLink>
               </ListItem>
@@ -416,7 +416,7 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<LocalPharmacyTwoToneIcon />}
                   >
-                    Tooltips
+                    {/* Tooltips */}
                   </Button>
                 </NextLink>
               </ListItem>
@@ -431,7 +431,7 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<RedeemTwoToneIcon />}
                   >
-                    Avatars
+                    {/* Avatars */}
                   </Button>
                 </NextLink>
               </ListItem>
@@ -446,7 +446,7 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<SettingsTwoToneIcon />}
                   >
-                    Cards
+                    {/* Cards */}
                   </Button>
                 </NextLink>
               </ListItem>
@@ -461,7 +461,7 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<TrafficTwoToneIcon />}
                   >
-                    Forms
+                    {/* Forms */}
                   </Button>
                 </NextLink>
               </ListItem>
@@ -472,7 +472,7 @@ function SidebarMenu() {
           component="div"
           subheader={
             <ListSubheader component="div" disableSticky>
-              Extra Pages
+              {/* Extra Pages */}
             </ListSubheader>
           }
         >
@@ -487,7 +487,7 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<CheckBoxTwoToneIcon />}
                   >
-                    Error 404
+                    {/* Error 404 */}
                   </Button>
                 </NextLink>
               </ListItem>
@@ -500,7 +500,7 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<CameraFrontTwoToneIcon />}
                   >
-                    Error 500
+                    {/* Error 500 */}
                   </Button>
                 </NextLink>
               </ListItem>
@@ -515,7 +515,7 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<ChromeReaderModeTwoToneIcon />}
                   >
-                    Coming Soon
+                    {/* Coming Soon */}
                   </Button>
                 </NextLink>
               </ListItem>
@@ -530,7 +530,7 @@ function SidebarMenu() {
                     onClick={closeSidebar}
                     startIcon={<WorkspacePremiumTwoToneIcon />}
                   >
-                    Maintenance
+                    {/* Maintenance */}
                   </Button>
                 </NextLink>
               </ListItem>
