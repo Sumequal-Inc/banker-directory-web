@@ -213,7 +213,7 @@ function SidebarMenu() {
           <SubMenuWrapper>
             <List component="div">
               <ListItem component="div">
-                <NextLink href="/dashboards/tasks" passHref>
+                <NextLink href="/dashboardss" passHref>
                   <Button
                     className={
                       currentRoute === '/dashboards/tasks' ? 'active' : ''

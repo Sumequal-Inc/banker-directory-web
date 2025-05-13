@@ -75,7 +75,7 @@ function Hero() {
               <StyledButton
                 size="large"
                 variant="contained"
-                href="auth/login"
+                href="/login"
                 sx={{
                   backgroundColor: '#1a73e8',
                   color: '#fff',
@@ -87,7 +87,7 @@ function Hero() {
               <StyledButton
                 size="large"
                 variant="contained"
-                href="auth/login"
+                href="/login"
                 sx={{
                   backgroundColor: '#34a853',
                   color: '#fff',

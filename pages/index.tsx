@@ -77,7 +77,7 @@ function Overview() {
           }}
         >
           <img
-            src="static/images/logo/f2fin.png"
+            src="/static/images/logo/f2fin.png"
             alt="Logo"
             style={{
               maxWidth: "100%", 
