@@ -92,13 +92,13 @@ function Overview() {
       <Hero />
       <Container maxWidth="lg" sx={{ mt: 8 }}>
         <Typography textAlign="center" variant="subtitle1">
-          Developed by{' '}
+          {/* Developed by{' '} */}
           <Link
             href="#"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Prashant
+            {/* Prashant */}
           </Link>
         </Typography>
       </Container>
