@@ -28,7 +28,7 @@ function Logo() {
   return (
     <LogoWrapper href="/">
       <LogoImage
-        src="static/images/logo/f2fin.png"
+        src="/static/images/logo/f2fin.png"
         alt="Logo"
       />
       <Box

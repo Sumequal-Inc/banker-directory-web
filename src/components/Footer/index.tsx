@@ -27,13 +27,13 @@ function Footer() {
           }}
           variant="subtitle1"
         >
-          Developed by{' '}
+          {/* Developed by{' '} */}
           <Link
             href="#"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Prashant
+            {/* Prashant */}
           </Link>
         </Typography>
       </Box>
