@@ -213,7 +213,7 @@ function SidebarMenu() {
           <SubMenuWrapper>
             <List component="div">
               <ListItem component="div">
-                <NextLink href="/dashboardss" passHref>
+                <NextLink href="/dashboards" passHref>
                   <Button
                     className={
                       currentRoute === '/dashboards/tasks' ? 'active' : ''
@@ -228,17 +228,17 @@ function SidebarMenu() {
                 </NextLink>
               </ListItem>
               <ListItem component="div">
-                <NextLink href="/applications/messenger" passHref>
+                <NextLink href="/lender/tasks" passHref>
                   <Button
                     className={
-                      currentRoute === '/applications/messenger' ? 'active' : ''
+                      currentRoute === '/lender/tasks' ? 'active' : ''
                     }
                     disableRipple
                     component="a"
                     onClick={closeSidebar}
                     startIcon={<MmsTwoToneIcon />}
                   >
-                    {/* Messenger */}
+                  Lenders List
                   </Button>
                 </NextLink>
               </ListItem>
