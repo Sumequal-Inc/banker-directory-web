@@ -13,7 +13,9 @@ import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import AddAlertTwoToneIcon from '@mui/icons-material/AddAlertTwoTone';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 import DirectoryForm from './DirectoryForm';
+import LenderForm from './LenderForm'; 
 
 const AvatarPageTitle = styled(Avatar)(
   ({ theme }) => `
@@ -38,6 +40,11 @@ const AvatarPageTitle = styled(Avatar)(
 
 function PageHeader({ onCreated }: { onCreated: () => void }) {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
+
+  const isLenderRoute = router.pathname.includes('/lender');
+  const buttonLabel = isLenderRoute ? 'Add Lenders' : 'Add Bankers';
+  const dialogTitle = isLenderRoute ? 'Add Lender' : 'Add Banker';
 
   return (
     <>
@@ -66,7 +73,7 @@ function PageHeader({ onCreated }: { onCreated: () => void }) {
             startIcon={<AddTwoToneIcon fontSize="small" />}
             onClick={() => setOpen(true)}
           >
-            Add Bankers
+            {buttonLabel}
           </Button>
         </Box>
       </Box>
@@ -74,7 +81,7 @@ function PageHeader({ onCreated }: { onCreated: () => void }) {
       {/* Modal */}
       <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="md">
         <DialogTitle>
-          Add Banker
+          {dialogTitle}
           <IconButton
             onClick={() => setOpen(false)}
             sx={{ position: 'absolute', right: 8, top: 8 }}
@@ -83,12 +90,21 @@ function PageHeader({ onCreated }: { onCreated: () => void }) {
           </IconButton>
         </DialogTitle>
         <DialogContent dividers>
-          <DirectoryForm
-            onSuccess={() => {
-              setOpen(false);
-              onCreated(); 
-            }}
-          />
+          {isLenderRoute ? (
+            <LenderForm
+              onSuccess={() => {
+                setOpen(false);
+                onCreated();
+              }}
+            />
+          ) : (
+            <DirectoryForm
+              onSuccess={() => {
+                setOpen(false);
+                onCreated();
+              }}
+            />
+          )}
         </DialogContent>
       </Dialog>
     </>
