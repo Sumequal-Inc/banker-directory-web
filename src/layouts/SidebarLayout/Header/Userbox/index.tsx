@@ -60,9 +60,9 @@ const UserBoxDescription = styled(Typography)(
 
 function HeaderUserbox() {
   const user = {
-    name: 'Catherine Pike',
-    avatar: '/static/images/avatars/1.jpg',
-    jobtitle: 'Project Manager'
+    name: 'F2 Fintech',
+    avatar: '/static/images/logo/f2fin.png',
+    // jobtitle: 'Project Manager'
   };
 
   const ref = useRef<any>(null);
@@ -83,9 +83,9 @@ function HeaderUserbox() {
         <Hidden mdDown>
           <UserBoxText>
             <UserBoxLabel variant="body1">{user.name}</UserBoxLabel>
-            <UserBoxDescription variant="body2">
+            {/* <UserBoxDescription variant="body2">
               {user.jobtitle}
-            </UserBoxDescription>
+            </UserBoxDescription> */}
           </UserBoxText>
         </Hidden>
         <Hidden smDown>
@@ -106,9 +106,9 @@ function HeaderUserbox() {
         }}
       >
         <MenuUserBox sx={{ minWidth: 210 }} display="flex">
-          <Avatar variant="rounded" alt={user.name} src={user.avatar} />
+          {/* <Avatar variant="rounded" alt={user.name} src={user.avatar} /> */}
           <UserBoxText>
-            <UserBoxLabel variant="body1">{user.name}</UserBoxLabel>
+            {/* <UserBoxLabel variant="body1">{user.name}</UserBoxLabel> */}
             <UserBoxDescription variant="body2">
               {user.jobtitle}
             </UserBoxDescription>

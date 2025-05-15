@@ -60,10 +60,10 @@ function PageHeader({ onCreated }: { onCreated: () => void }) {
           </AvatarPageTitle>
           <Box>
             <Typography variant="h3" component="h3" gutterBottom>
-              Welcome, Catherine!
+              Welcome, F2 Fintech!
             </Typography>
             <Typography variant="subtitle2">
-              Manage your day to day tasks with style! Enjoy a well built UI system.
+              "Manage your Directory"
             </Typography>
           </Box>
         </Box>

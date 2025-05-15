@@ -64,17 +64,17 @@ function Projects() {
         alignItems="center"
         justifyContent="space-between"
         sx={{
-          pb: 3
+          pb: 1
         }}
       >
-        <Typography variant="h3">Projects</Typography>
-        <Box>
+        {/* <Typography variant="h3">Projects</Typography> */}
+        {/* <Box>
           <Button size="small" variant="outlined">
             View all projects
           </Button>
-        </Box>
+        </Box> */}
       </Box>
-      <Grid container spacing={4}>
+      {/* <Grid container spacing={4}>
         <Grid item xs={12} md={4}>
           <Box>
             <CardHeader
@@ -467,7 +467,7 @@ function Projects() {
             </Box>
           </Box>
         </Grid>
-      </Grid>
+      </Grid> */}
     </>
   );
 }

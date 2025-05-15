@@ -53,7 +53,7 @@ const CheckboxWrapper = styled(Checkbox)(
 function Checklist() {
   return (
     <Box>
-      <CardHeader
+      {/* <CardHeader
         sx={{
           px: 0,
           pt: 0
@@ -66,9 +66,9 @@ function Checklist() {
           </Tooltip>
         }
         title="Checklist"
-      />
+      /> */}
       <TimelineWrapper>
-        <TimelineItem>
+        {/* <TimelineItem>
           <TimelineSeparator>
             <TimelineDot color="primary">
               <AssignmentTwoToneIcon />
@@ -99,8 +99,8 @@ function Checklist() {
               />
             </FormGroup>
           </TimelineContent>
-        </TimelineItem>
-        <TimelineItem>
+        </TimelineItem> */}
+        {/* <TimelineItem>
           <TimelineSeparator>
             <TimelineDot color="primary">
               <AccountTreeTwoToneIcon />
@@ -127,8 +127,8 @@ function Checklist() {
               />
             </FormGroup>
           </TimelineContent>
-        </TimelineItem>
-        <TimelineItem>
+        </TimelineItem> */}
+        {/* <TimelineItem>
           <TimelineSeparator>
             <TimelineDot color="primary">
               <BusinessCenterTwoToneIcon />
@@ -155,7 +155,7 @@ function Checklist() {
               />
             </FormGroup>
           </TimelineContent>
-        </TimelineItem>
+        </TimelineItem> */}
       </TimelineWrapper>
     </Box>
   );

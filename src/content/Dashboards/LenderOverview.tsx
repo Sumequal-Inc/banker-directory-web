@@ -1,23 +1,28 @@
-// src/content/Lenders/LenderOverview.tsx
 import {
   Box,
   Grid,
   Typography,
   Avatar,
-  Paper
+  Paper,
+  Button
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 interface Lender {
   _id: string;
   lenderName: string;
-  location: string;
+  state: string;
+  city: string;
   managerName: string;
+  rmName?: string; 
+  rmContact?: string; 
 }
 
 const LenderOverview = () => {
   const [lenders, setLenders] = useState<Lender[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
     axios
@@ -25,6 +30,10 @@ const LenderOverview = () => {
       .then((res) => setLenders(res.data))
       .catch((err) => console.error('Error fetching lenders:', err));
   }, []);
+
+  const handleViewMore = () => {
+    router.push('http://localhost:3000/management/lenders');
+  };
 
   return (
     <Grid container spacing={3}>
@@ -36,13 +45,21 @@ const LenderOverview = () => {
               <Box>
                 <Typography variant="h6">{lender.lenderName}</Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Location: {lender.location}
+                  Location: {lender.state}
                 </Typography>
               </Box>
             </Box>
-            <Typography variant="body2">
-              <strong>RM/SM:</strong> {lender.managerName}
+            <Typography variant="body2" gutterBottom>
+              <strong>RM/SM:</strong> {lender.rmName || 'N/A'} ({lender.rmContact || 'N/A'})
             </Typography>
+            <Button
+              variant="contained"
+              size="small"
+              onClick={handleViewMore}
+              sx={{ mt: 1 }}
+            >
+              View More Details
+            </Button>
           </Paper>
         </Grid>
       ))}
