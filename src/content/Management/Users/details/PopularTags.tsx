@@ -37,7 +37,7 @@ function PopularTags() {
           }}
           button
         >
-          <ListItemText primary="#HTML" />
+          <ListItemText primary="#FINTECH" />
         </ListItem>
         <Divider />
         <ListItem
@@ -47,7 +47,7 @@ function PopularTags() {
           }}
           button
         >
-          <ListItemText primary="#software_development" />
+          <ListItemText primary="#Profesional_loan" />
         </ListItem>
         <Divider />
         <ListItem
@@ -57,7 +57,7 @@ function PopularTags() {
           }}
           button
         >
-          <ListItemText primary="#TrendingInfuencers" />
+          <ListItemText primary="#Personal_loan" />
         </ListItem>
         <Divider />
         <ListItem
@@ -67,7 +67,7 @@ function PopularTags() {
           }}
           button
         >
-          <ListItemText primary="#investorsWatch2022" />
+          <ListItemText primary="#investorsWatch2025" />
         </ListItem>
         <Divider />
         <ListSubheader>

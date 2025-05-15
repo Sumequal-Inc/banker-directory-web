@@ -13,8 +13,18 @@ import axios from 'axios';
 const LenderForm = ({ onSuccess }: { onSuccess: () => void }) => {
   const [form, setForm] = useState({
     lenderName: '',
-    location: '',
-    managerName: ''
+    state: '',
+    city: '',
+    managerName: '',
+    bankerName: '',
+    email: '',
+    rmName: '',
+    rmContact: '',
+    asmName: '',
+    asmContact: '',
+    rsmName: '',
+    rsmContact: '',
+    zsmName: ''
   });
 
   const [error, setError] = useState('');
@@ -38,8 +48,18 @@ const LenderForm = ({ onSuccess }: { onSuccess: () => void }) => {
       setSuccessOpen(true);
       setForm({
         lenderName: '',
-        location: '',
-        managerName: ''
+        state: '',
+        city: '',
+        managerName: '',
+        bankerName: '',
+        email: '',
+        rmName: '',
+        rmContact: '',
+        asmName: '',
+        asmContact: '',
+        rsmName: '',
+        rsmContact: '',
+        zsmName: ''
       });
       setError('');
       onSuccess();
@@ -59,36 +79,31 @@ const LenderForm = ({ onSuccess }: { onSuccess: () => void }) => {
       {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
 
       <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <TextField
-            fullWidth
-            required
-            label="Lender Name"
-            name="lenderName"
-            value={form.lenderName}
-            onChange={handleChange}
-          />
-        </Grid>
-
-        <Grid item xs={12}>
-          <TextField
-            fullWidth
-            label="Location"
-            name="location"
-            value={form.location}
-            onChange={handleChange}
-          />
-        </Grid>
-
-        <Grid item xs={12}>
-          <TextField
-            fullWidth
-            label="RM / SM Name"
-            name="managerName"
-            value={form.managerName}
-            onChange={handleChange}
-          />
-        </Grid>
+        {[
+          { name: 'lenderName', label: 'Lender Name' },
+          { name: 'state', label: 'State' },
+          { name: 'city', label: 'City' },
+          { name: 'managerName', label: 'Manager Name' },
+          { name: 'bankerName', label: 'Banker Name' },
+          { name: 'email', label: 'Email' },
+          { name: 'rmName', label: 'RM Name' },
+          { name: 'rmContact', label: 'RM Contact No' },
+          { name: 'asmName', label: 'ASM Name' },
+          { name: 'asmContact', label: 'ASM Contact No' },
+          { name: 'rsmName', label: 'RSM Name' },
+          { name: 'rsmContact', label: 'RSM Contact No' },
+          { name: 'zsmName', label: 'ZSM Name' }
+        ].map((field) => (
+          <Grid item xs={12} sm={6} key={field.name}>
+            <TextField
+              fullWidth
+              label={field.label}
+              name={field.name}
+              value={form[field.name as keyof typeof form]}
+              onChange={handleChange}
+            />
+          </Grid>
+        ))}
 
         <Grid item xs={12}>
           <Button variant="contained" onClick={handleSubmit}>

@@ -15,17 +15,16 @@ import {
 } from '@mui/material';
 
 import SidebarMenu from './SidebarMenu';
-import Logo from 'src/components/LogoSign';
 
 const SidebarWrapper = styled(Box)(
   ({ theme }) => `
-        width: ${theme.sidebar.width};
-        min-width: ${theme.sidebar.width};
-        color: ${theme.colors.alpha.trueWhite[70]};
-        position: relative;
-        z-index: 7;
-        height: 100%;
-        padding-bottom: 68px;
+    width: ${theme.sidebar.width};
+    min-width: ${theme.sidebar.width};
+    color: ${theme.colors.alpha.trueWhite[70]};
+    position: relative;
+    z-index: 7;
+    height: 100%;
+    padding-bottom: 68px;
 `
 );
 
@@ -54,16 +53,20 @@ function Sidebar() {
         }}
       >
         <Scrollbar>
-          <Box mt={3}>
-            <Box
-              mx={2}
-              sx={{
-                width: 52
-              }}
-            >
-              <Logo />
-            </Box>
-          </Box>
+       <Box mt={0} display="flex" justifyContent="center">
+  <Box
+    sx={{
+      width: 80
+    }}
+  >
+    <img
+      src="/static/images/logo/f2fin.png"
+      alt="F2Fin Logo"
+      style={{ width: '100%', height: 'auto', display: 'block' }}
+    />
+  </Box>
+</Box>
+
           <Divider
             sx={{
               mt: theme.spacing(3),
@@ -79,19 +82,10 @@ function Sidebar() {
           }}
         />
         <Box p={2}>
-          {/* <Button
-            href="https://bloomui.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            variant="contained"
-            color="success"
-            size="small"
-            fullWidth
-          >
-            Upgrade to PRO
-          </Button> */}
+          {/* Optional button or additional footer content */}
         </Box>
       </SidebarWrapper>
+
       <Drawer
         sx={{
           boxShadow: `${theme.sidebar.boxShadow}`
@@ -118,7 +112,11 @@ function Sidebar() {
                   width: 52
                 }}
               >
-                <Logo />
+                <img
+                  src="/static/images/logo/f2fin.png"
+                  alt="F2Fin Logo"
+                  style={{ width: '100%' }}
+                />
               </Box>
             </Box>
             <Divider

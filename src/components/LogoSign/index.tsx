@@ -51,7 +51,7 @@ function Logo() {
 
   return (
     <TooltipWrapper
-      title="Bankers Directory"
+      title=""
       arrow
     >
       <LogoWrapper href="/">

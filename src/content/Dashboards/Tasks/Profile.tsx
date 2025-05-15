@@ -20,7 +20,7 @@ function Profile() {
 
   return (
     <Box>
-      <Avatar
+      {/* <Avatar
         sx={{
           mx: 'auto',
           mb: 1.5,
@@ -30,8 +30,8 @@ function Profile() {
         variant="rounded"
         alt="Craig Donin"
         src="/static/images/avatars/4.jpg"
-      />
-      <Typography align="center" variant="h4" gutterBottom>
+      /> */}
+      {/* <Typography align="center" variant="h4" gutterBottom>
         Craig Donin
       </Typography>
       <Typography align="center" variant="subtitle2" gutterBottom>
@@ -81,8 +81,8 @@ function Profile() {
             <MessageTwoToneIcon />
           </IconButton>
         </Tooltip>
-      </Box>
-      <List
+      </Box> */}
+      {/* <List
         sx={{
           px: 2
         }}
@@ -133,7 +133,7 @@ function Profile() {
             67 active
           </Typography>
         </ListItem>
-      </List>
+      </List> */}
     </Box>
   );
 }

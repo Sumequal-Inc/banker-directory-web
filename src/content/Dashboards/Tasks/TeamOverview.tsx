@@ -3,52 +3,40 @@ import {
   Grid,
   Typography,
   Avatar,
-  Badge,
   Tooltip,
-  useTheme,
-  LinearProgress,
-  styled
+  IconButton,
+  List,
+  Divider,
+  useTheme
 } from '@mui/material';
+import PhoneTwoToneIcon from '@mui/icons-material/PhoneTwoTone';
+import EmailTwoToneIcon from '@mui/icons-material/EmailTwoTone';
+// import MessageTwoToneIcon from '@mui/icons-material/MessageTwoTone';
 import { useEffect, useState } from 'react';
-import { formatDistanceToNow } from 'date-fns';
-import Text from 'src/components/Text';
 import axios from 'axios';
 
-const DotLegend = styled('span')(({ theme }) => `
-  border-radius: 22px;
-  width: ${theme.spacing(1.5)};
-  height: ${theme.spacing(1.5)};
-  display: inline-block;
-  margin-right: ${theme.spacing(0.5)};
-  border: ${theme.colors.alpha.white[100]} solid 2px;
-`);
-
-const AvatarWrapper = styled(Avatar)(({ theme }) => `
-  width: ${theme.spacing(7)};
-  height: ${theme.spacing(7)};
-`);
-
-const LinearProgressWrapper = styled(LinearProgress)(({ theme }) => `
-  flex-grow: 1;
-  height: 10px;
-  &.MuiLinearProgress-root {
-    background-color: ${theme.colors.alpha.black[10]};
-  }
-  .MuiLinearProgress-bar {
-    border-radius: ${theme.general.borderRadiusXl};
-  }
-`);
+interface Member {
+  fullName: string;
+  profileImage: string;
+  designation: string;
+  currentInstitutionName: string;
+  dateOfJoining: string;
+  totalExperience: string;
+  contact: string;
+  email: string;
+  location: string;
+  rating?: number;
+}
 
 const TeamOverview = () => {
   const theme = useTheme();
-  const [members, setMembers] = useState([]);
+  const [members, setMembers] = useState<Member[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get('http://localhost:3001/directory/get-directories');
-        console.log(res,"edfrefdcsa")
-        setMembers(res.data);
+        setMembers(Array.isArray(res.data.data) ? res.data.data : res.data);
       } catch (error) {
         console.error('Error fetching directory:', error);
       }
@@ -59,86 +47,93 @@ const TeamOverview = () => {
 
   return (
     <Grid container spacing={4}>
-      {members.map((member, index) => {
-        const progress = (member.tasksCompleted / member.totalTasks) * 100;
-        const statusColor =
-          member.status === 'online'
-            ? theme.colors.success.main
-            : theme.colors.error.main;
-
-        return (
-         <Grid item xs={12} md={4} key={index}>
-  <Box p={2} border="1px solid #ddd" borderRadius={2} boxShadow={2}>
-    <Box display="flex" alignItems="center" pb={2}>
-      <Badge
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right'
-        }}
-        overlap="circular"
-        badgeContent={
-          <Tooltip
-            arrow
-            placement="top"
-            title={
-              member.status === 'online'
-                ? 'Online since'
-                : 'Offline since'
-            }
+      {members.map((member, index) => (
+        <Grid item xs={12} sm={6} md={4} key={index}>
+          <Box
+            textAlign="center"
+            border="1px solid #ddd"
+            borderRadius={2}
+            p={3}
+            boxShadow={2}
+            bgcolor={theme.palette.background.paper}
           >
-            <DotLegend style={{ background: statusColor }} />
-          </Tooltip>
-        }
-      >
-        <AvatarWrapper alt={member.fullName} src={member.profileImage} />
-      </Badge>
-      <Box sx={{ ml: 2 }}>
-        <Typography variant="h5">{member.fullName}</Typography>
-        <Typography variant="subtitle2" color="text.secondary">
-          {member.designation} at {member.currentInstitutionName}
-        </Typography>
-      </Box>
-    </Box>
+            <Avatar
+              sx={{
+                mx: 'auto',
+                mb: 1.5,
+                width: theme.spacing(12),
+                height: theme.spacing(12)
+              }}
+              variant="rounded"
+              alt={member.fullName}
+              src={member.profileImage}
+            />
 
-    <Typography variant="body2"><strong>Date of Joining:</strong> {new Date(member.dateOfJoining).toLocaleDateString()}</Typography>
-    <Typography variant="body2"><strong>Total Experience:</strong> {member.totalExperience}</Typography>
-    <Typography variant="body2"><strong>Contact:</strong> {member.contact}</Typography>
-    <Typography variant="body2"><strong>Email:</strong> {member.email}</Typography>
-    <Typography variant="body2" gutterBottom><strong>Location:</strong> {member.location}</Typography>
+            <Typography variant="h4" gutterBottom>
+              {member.fullName}
+            </Typography>
+            <Typography variant="subtitle2" gutterBottom>
+              {member.designation} {member.currentInstitutionName}
+            </Typography>
 
-    {member.tasksCompleted && member.totalTasks && (
-      <>
-        <Typography variant="subtitle2" gutterBottom mt={2}>
-          <Text color="black">{member.tasksCompleted}</Text> out of{' '}
-          <Text color="black">{member.totalTasks}</Text> tasks completed
-        </Typography>
-        <LinearProgressWrapper
-          value={(member.tasksCompleted / member.totalTasks) * 100}
-          color="primary"
-          variant="determinate"
-        />
-      </>
-    )}
+            {/* Icons with Hover Tooltips */}
+            <Box py={2} display="flex" alignItems="center" justifyContent="center">
+              <Tooltip title={member.contact || 'No contact available'} arrow>
+                <IconButton color="primary" sx={{ mx: 0.5 }}>
+                  <PhoneTwoToneIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title={member.email || 'No email available'} arrow>
+                <IconButton color="primary" sx={{ mx: 0.5 }}>
+                  <EmailTwoToneIcon />
+                </IconButton>
+              </Tooltip>
+              {/* <Tooltip title="Send message" arrow>
+                <IconButton color="primary" sx={{ mx: 0.5 }}>
+                  <MessageTwoToneIcon />
+                </IconButton>
+              </Tooltip> */}
+            </Box>
 
-    {/* Previous Experience */}
-    <Box mt={3}>
-      <Typography variant="h6" gutterBottom>Previous Experience</Typography>
-      {member.previousExperience?.map((exp, expIndex) => (
-        <Box key={expIndex} pl={1.5} mb={1} borderLeft="3px solid #1976d2">
-          <Typography variant="subtitle2">{exp.currentInstitutionName}</Typography>
-          <Typography variant="body2">{exp.role}</Typography>
-          <Typography variant="body2">
-            {new Date(exp.startDate).toLocaleDateString()} – {new Date(exp.endDate).toLocaleDateString()}
-          </Typography>
-          <Typography variant="body2" fontStyle="italic">{exp.description}</Typography>
-        </Box>
+            <List sx={{ textAlign: 'left', mt: 2 }}>
+              <Box component="li" py={1}>
+                <Typography variant="subtitle2">Join Date</Typography>
+                <Typography variant="subtitle2" color="text.primary">
+                  {new Date(member.dateOfJoining).toLocaleDateString()}
+                </Typography>
+              </Box>
+              <Divider />
+              <Box component="li" py={1}>
+                <Typography variant="subtitle2">Experience</Typography>
+                <Typography variant="subtitle2" color="text.primary">
+                  {member.totalExperience}
+                </Typography>
+              </Box>
+              <Divider />
+              <Box component="li" py={1}>
+                <Typography variant="subtitle2">bank</Typography>
+                <Typography variant="subtitle2" color="text.primary">
+                  {member.bankName}
+                </Typography>
+              </Box>
+              <Divider />
+              <Box component="li" py={1}>
+                <Typography variant="subtitle2">Email</Typography>
+                <Typography variant="subtitle2" color="text.primary">
+                  {member.email}
+                </Typography>
+              </Box>
+              <Divider />
+              <Box component="li" py={1}>
+                <Typography variant="subtitle2">Location</Typography>
+                <Typography variant="subtitle2" color="text.primary">
+                  {member.location}
+                </Typography>
+              </Box>
+            </List>
+          </Box>
+        </Grid>
       ))}
-    </Box>
-  </Box>
-</Grid>
-
-        );
-      })}
     </Grid>
   );
 };
