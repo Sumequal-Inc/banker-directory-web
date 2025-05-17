@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-
+import { useRouter } from 'next/router'; // <-- Import useRouter
 import NextLink from 'next/link';
 
 import {
@@ -65,6 +65,7 @@ function HeaderUserbox() {
     // jobtitle: 'Project Manager'
   };
 
+  const router = useRouter(); // <-- Add this hook
   const ref = useRef<any>(null);
   const [isOpen, setOpen] = useState<boolean>(false);
 
@@ -74,6 +75,14 @@ function HeaderUserbox() {
 
   const handleClose = (): void => {
     setOpen(false);
+  };
+
+  // Handle sign out
+  const handleSignOut = (): void => {
+    // Clear localStorage/session/cookies/etc.
+    localStorage.clear(); // or removeItem('token'), etc.
+    // Redirect to login page
+    router.push('/login');
   };
 
   return (
@@ -115,7 +124,7 @@ function HeaderUserbox() {
           </UserBoxText>
         </MenuUserBox>
         <Divider sx={{ mb: 0 }} />
-        <List sx={{ p: 1 }} component="nav">
+        {/* <List sx={{ p: 1 }} component="nav">
           <NextLink href="/management/profile" passHref>
             <ListItem button>
               <AccountBoxTwoToneIcon fontSize="small" />
@@ -134,10 +143,10 @@ function HeaderUserbox() {
               <ListItemText primary="Account Settings" />
             </ListItem>
           </NextLink>
-        </List>
+        </List> */}
         <Divider />
         <Box sx={{ m: 1 }}>
-          <Button color="primary" fullWidth>
+          <Button color="primary" fullWidth onClick={handleSignOut}>
             <LockOpenTwoToneIcon sx={{ mr: 1 }} />
             Sign out
           </Button>

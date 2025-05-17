@@ -16,6 +16,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import DirectoryForm from './DirectoryForm';
 import LenderForm from './LenderForm'; 
+import BankerDirectoryForm from './BankerDirectoryForm';
 
 const AvatarPageTitle = styled(Avatar)(
   ({ theme }) => `
@@ -42,9 +43,23 @@ function PageHeader({ onCreated }: { onCreated: () => void }) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
-  const isLenderRoute = router.pathname.includes('/lender');
-  const buttonLabel = isLenderRoute ? 'Add Lenders' : 'Add Bankers';
-  const dialogTitle = isLenderRoute ? 'Add Lender' : 'Add Banker';
+  const pathname = router.pathname;
+
+  // Logic to determine form type and labels
+  const isLenderRoute = pathname.includes('/lender');
+  const isBankerRoute = pathname.includes('/directory'); 
+
+  const buttonLabel = isLenderRoute
+    ? 'Add Lender'
+    : isBankerRoute
+    ? 'Add Banker Directory'
+    : 'Add Directory';
+
+  const dialogTitle = isLenderRoute
+    ? 'Add Lender'
+    : isBankerRoute
+    ? 'Add Banker Directory Entry'
+    : 'Add Directory';
 
   return (
     <>
@@ -92,6 +107,13 @@ function PageHeader({ onCreated }: { onCreated: () => void }) {
         <DialogContent dividers>
           {isLenderRoute ? (
             <LenderForm
+              onSuccess={() => {
+                setOpen(false);
+                onCreated();
+              }}
+            />
+          ) : isBankerRoute ? (
+            <BankerDirectoryForm
               onSuccess={() => {
                 setOpen(false);
                 onCreated();

@@ -171,7 +171,7 @@ function TasksAnalytics() {
 
   return (
     <Box>
-      <Box
+      {/* <Box
         mb={2}
         display="flex"
         alignItems="center"
@@ -214,8 +214,8 @@ function TasksAnalytics() {
             </MenuItem>
           ))}
         </Menu>
-      </Box>
-      <Box display="flex" alignItems="center" pb={2}>
+      </Box> */}
+      {/* <Box display="flex" alignItems="center" pb={2}>
         <Typography
           variant="body2"
           color="text.secondary"
@@ -239,13 +239,13 @@ function TasksAnalytics() {
           <DotPrimaryLight />
           tasks completed
         </Typography>
-      </Box>
-      <Chart
+      </Box> */}
+      {/* <Chart
         options={chartOptions}
         series={chartData}
         type="bar"
         height={270}
-      />
+      /> */}
     </Box>
   );
 }

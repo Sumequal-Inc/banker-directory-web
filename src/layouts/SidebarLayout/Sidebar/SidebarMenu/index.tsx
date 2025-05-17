@@ -227,6 +227,21 @@ function SidebarMenu() {
                   </Button>
                 </NextLink>
               </ListItem>
+               <ListItem component="div">
+                <NextLink href="/directory/tasks" passHref>
+                  <Button
+                    className={
+                      currentRoute === '/directory/tasks' ? 'active' : ''
+                    }
+                    disableRipple
+                    component="a"
+                    onClick={closeSidebar}
+                    startIcon={<BrightnessLowTwoToneIcon />}
+                  >
+                    Bankers Directory
+                  </Button>
+                </NextLink>
+              </ListItem>
               <ListItem component="div">
                 <NextLink href="/lender/tasks" passHref>
                   <Button

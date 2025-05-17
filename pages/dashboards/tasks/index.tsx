@@ -123,7 +123,7 @@ function DashboardTasks() {
   return (
     <>
       <Head>
-        <title>Tasks Dashboard</title>
+        <title>Bankers Directory</title>
       </Head>
       <PageTitleWrapper>
         <PageHeader />

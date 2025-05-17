@@ -77,7 +77,7 @@ const DirectoryForm = ({ onSuccess }: { onSuccess: () => void }) => {
     }
 
     try {
-      const res = await axios.post('http://localhost:3001/directory/create-directory', form);
+      const res = await axios.post('http://localhost:3001/bankers/create-banker', form);
       console.log('Directory created:', res.data);
 
       setSuccessOpen(true);

@@ -35,7 +35,7 @@ const TeamOverview = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get('http://localhost:3001/directory/get-directories');
+        const res = await axios.get('http://localhost:3001/bankers/get-bankers');
         setMembers(Array.isArray(res.data.data) ? res.data.data : res.data);
       } catch (error) {
         console.error('Error fetching directory:', error);

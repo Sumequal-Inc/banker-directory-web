@@ -54,17 +54,16 @@ function Sidebar() {
       >
         <Scrollbar>
        <Box mt={0} display="flex" justifyContent="center">
-  <Box
-    sx={{
-      width: 80
-    }}
-  >
+<Box sx={{ width: 80 }}>
+  <a href="http://localhost:3000">
     <img
       src="/static/images/logo/f2fin.png"
       alt="F2Fin Logo"
       style={{ width: '100%', height: 'auto', display: 'block' }}
     />
-  </Box>
+  </a>
+</Box>
+
 </Box>
 
           <Divider
