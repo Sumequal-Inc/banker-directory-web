@@ -50,7 +50,6 @@ const LenderForm = ({ onSuccess }: { onSuccess: () => void }) => {
         lenderName: '',
         state: '',
         city: '',
-        managerName: '',
         bankerName: '',
         email: '',
         rmName: '',
@@ -83,7 +82,7 @@ const LenderForm = ({ onSuccess }: { onSuccess: () => void }) => {
           { name: 'lenderName', label: 'Lender Name' },
           { name: 'state', label: 'State' },
           { name: 'city', label: 'City' },
-          { name: 'managerName', label: 'Manager Name' },
+          
           { name: 'bankerName', label: 'Banker Name' },
           { name: 'email', label: 'Email' },
           { name: 'rmName', label: 'RM Name' },

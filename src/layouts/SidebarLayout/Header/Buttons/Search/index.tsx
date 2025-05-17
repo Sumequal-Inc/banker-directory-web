@@ -25,7 +25,6 @@ import { styled } from '@mui/material/styles';
 import { TransitionProps } from '@mui/material/transitions';
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
 import FindInPageTwoToneIcon from '@mui/icons-material/FindInPageTwoTone';
-
 import ChevronRightTwoToneIcon from '@mui/icons-material/ChevronRightTwoTone';
 
 const Transition = forwardRef(function Transition(
@@ -40,7 +39,6 @@ const DialogWrapper = styled(Dialog)(
     .MuiDialog-container {
         height: auto;
     }
-    
     .MuiDialog-paperScrollPaper {
         max-height: calc(100vh - 64px)
     }
@@ -50,7 +48,6 @@ const DialogWrapper = styled(Dialog)(
 const SearchInputWrapper = styled(TextField)(
   ({ theme }) => `
     background: ${theme.colors.alpha.white[100]};
-
     .MuiInputBase-input {
         font-size: ${theme.typography.pxToRem(17)};
     }
@@ -64,31 +61,50 @@ const DialogTitleWrapper = styled(DialogTitle)(
 `
 );
 
+// 1. This is your mock dataset. Replace with your actual data!
+const searchData = [
+  {
+    title: 'Dashboard for Healthcare Platform',
+    description: 'This page contains all the necessary information for managing all hospital staff.',
+    href: '/dashboard'
+  },
+  {
+    title: 'Example Projects Application',
+    description: 'This is yet another search result pointing to an app page.',
+    href: '/example-projects'
+  },
+  {
+    title: 'Search Results Page',
+    description: 'Choose if you would like to show or not this typography section here...',
+    href: '/search-results'
+  }
+  // Add more items as needed...
+];
+
 function HeaderSearch() {
   const [openSearchResults, setOpenSearchResults] = useState(false);
   const [searchValue, setSearchValue] = useState('');
+  const [open, setOpen] = useState(false);
+
+  // 2. Filter items based on searchValue
+  const filteredResults = searchData.filter(
+    (item) =>
+      item.title.toLowerCase().includes(searchValue.toLowerCase()) ||
+      item.description.toLowerCase().includes(searchValue.toLowerCase())
+  );
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setSearchValue(event.target.value);
 
     if (event.target.value) {
-      if (!openSearchResults) {
-        setOpenSearchResults(true);
-      }
+      if (!openSearchResults) setOpenSearchResults(true);
     } else {
       setOpenSearchResults(false);
     }
   };
 
-  const [open, setOpen] = useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleClickOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <>
@@ -128,18 +144,10 @@ function HeaderSearch() {
 
         {openSearchResults && (
           <DialogContent>
-            <Box
-              sx={{ pt: 0, pb: 1 }}
-              display="flex"
-              justifyContent="space-between"
-            >
+            <Box sx={{ pt: 0, pb: 1 }} display="flex" justifyContent="space-between">
               <Typography variant="body2" component="span">
                 Search results for{' '}
-                <Typography
-                  sx={{ fontWeight: 'bold' }}
-                  variant="body1"
-                  component="span"
-                >
+                <Typography sx={{ fontWeight: 'bold' }} variant="body1" component="span">
                   {searchValue}
                 </Typography>
               </Typography>
@@ -149,121 +157,49 @@ function HeaderSearch() {
             </Box>
             <Divider sx={{ my: 1 }} />
             <List disablePadding>
-              <ListItem button>
-                <Hidden smDown>
-                  <ListItemAvatar>
-                    <Avatar
-                      sx={{
-                        background: (theme: Theme) =>
-                          theme.palette.secondary.main
-                      }}
-                    >
-                      <FindInPageTwoToneIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                </Hidden>
-                <Box flex="1">
-                  <Box display="flex" justifyContent="space-between">
-                    <Link
-                      href="#"
-                      underline="hover"
-                      sx={{ fontWeight: 'bold' }}
-                      variant="body2"
-                    >
-                      Dashboard for Healthcare Platform
-                    </Link>
-                  </Box>
-                  <Typography
-                    component="span"
-                    variant="body2"
-                    sx={{
-                      color: (theme: Theme) =>
-                        lighten(theme.palette.secondary.main, 0.5)
-                    }}
-                  >
-                    This page contains all the necessary information for
-                    managing all hospital staff.
-                  </Typography>
-                </Box>
-                <ChevronRightTwoToneIcon />
-              </ListItem>
-              <Divider sx={{ my: 1 }} component="li" />
-              <ListItem button>
-                <Hidden smDown>
-                  <ListItemAvatar>
-                    <Avatar
-                      sx={{
-                        background: (theme: Theme) =>
-                          theme.palette.secondary.main
-                      }}
-                    >
-                      <FindInPageTwoToneIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                </Hidden>
-                <Box flex="1">
-                  <Box display="flex" justifyContent="space-between">
-                    <Link
-                      href="#"
-                      underline="hover"
-                      sx={{ fontWeight: 'bold' }}
-                      variant="body2"
-                    >
-                      Example Projects Application
-                    </Link>
-                  </Box>
-                  <Typography
-                    component="span"
-                    variant="body2"
-                    sx={{
-                      color: (theme: Theme) =>
-                        lighten(theme.palette.secondary.main, 0.5)
-                    }}
-                  >
-                    This is yet another search result pointing to a app page.
-                  </Typography>
-                </Box>
-                <ChevronRightTwoToneIcon />
-              </ListItem>
-              <Divider sx={{ my: 1 }} component="li" />
-              <ListItem button>
-                <Hidden smDown>
-                  <ListItemAvatar>
-                    <Avatar
-                      sx={{
-                        background: (theme: Theme) =>
-                          theme.palette.secondary.main
-                      }}
-                    >
-                      <FindInPageTwoToneIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                </Hidden>
-                <Box flex="1">
-                  <Box display="flex" justifyContent="space-between">
-                    <Link
-                      href="#"
-                      underline="hover"
-                      sx={{ fontWeight: 'bold' }}
-                      variant="body2"
-                    >
-                      Search Results Page
-                    </Link>
-                  </Box>
-                  <Typography
-                    component="span"
-                    variant="body2"
-                    sx={{
-                      color: (theme: Theme) =>
-                        lighten(theme.palette.secondary.main, 0.5)
-                    }}
-                  >
-                    Choose if you would like to show or not this typography
-                    section here...
-                  </Typography>
-                </Box>
-                <ChevronRightTwoToneIcon />
-              </ListItem>
+              {/* 3. Show filtered results */}
+              {filteredResults.length > 0 ? (
+                filteredResults.map((item, idx) => (
+                  <div key={item.title}>
+                    <ListItem button component="a" href={item.href}>
+                      <Hidden smDown>
+                        <ListItemAvatar>
+                          <Avatar sx={{ background: (theme: Theme) => theme.palette.secondary.main }}>
+                            <FindInPageTwoToneIcon />
+                          </Avatar>
+                        </ListItemAvatar>
+                      </Hidden>
+                      <Box flex="1">
+                        <Box display="flex" justifyContent="space-between">
+                          <Link
+                            href={item.href}
+                            underline="hover"
+                            sx={{ fontWeight: 'bold' }}
+                            variant="body2"
+                          >
+                            {item.title}
+                          </Link>
+                        </Box>
+                        <Typography
+                          component="span"
+                          variant="body2"
+                          sx={{
+                            color: (theme: Theme) => lighten(theme.palette.secondary.main, 0.5)
+                          }}
+                        >
+                          {item.description}
+                        </Typography>
+                      </Box>
+                      <ChevronRightTwoToneIcon />
+                    </ListItem>
+                    <Divider sx={{ my: 1 }} component="li" />
+                  </div>
+                ))
+              ) : (
+                <Typography color="text.secondary" sx={{ p: 2 }}>
+                  No results found.
+                </Typography>
+              )}
             </List>
             <Divider sx={{ mt: 1, mb: 2 }} />
             <Box sx={{ textAlign: 'center' }}>
