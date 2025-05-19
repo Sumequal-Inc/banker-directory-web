@@ -3,13 +3,13 @@ import SidebarLayout from '@/layouts/SidebarLayout';
 import { ChangeEvent, useState, useEffect } from 'react';
 import PageHeader from '@/content/Dashboards/Tasks/PageHeader';
 import Footer from '@/components/Footer';
-import { Box, Grid, Tab, Tabs, Typography, Avatar, Paper, Button, Chip, Divider, Stack, TextField, Container, Card, InputAdornment } from '@mui/material';
+import { Box, Grid, Tab, Tabs, Typography, Avatar, Paper, Chip, Divider, Stack, TextField, Container, Card, InputAdornment } from '@mui/material';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { useTheme } from '@mui/material/styles';
 import PageTitleWrapper from '@/components/PageTitleWrapper';
 import { styled } from '@mui/material/styles';
-import ClearIcon from '@mui/icons-material/Clear'; // Import Clear Icon
+import ClearIcon from '@mui/icons-material/Clear'; 
 
 // Define the interface for Banker
 interface Banker {
@@ -23,79 +23,121 @@ interface Banker {
   product: string[];
 }
 
-// BankerOverview Component to display all bankers or filter them by location
+// BankerOverview Component to display all bankers or filter them by location or banker name
 const BankerOverview = () => {
   const [bankers, setBankers] = useState<Banker[]>([]);
   const [filteredBankers, setFilteredBankers] = useState<Banker[]>([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchLocation, setSearchLocation] = useState('');
+  const [searchBanker, setSearchBanker] = useState('');
   const router = useRouter();
 
-  // Fetch the bankers from the backend
   useEffect(() => {
     axios
       .get('http://localhost:3001/banker-directory/get-directories')
       .then((res) => {
         setBankers(res.data);
-        setFilteredBankers(res.data);  // Set filteredBankers initially to all bankers
+        setFilteredBankers(res.data);  
       })
       .catch((err) => console.error('Error fetching bankers:', err));
   }, []);
 
-  // Filter bankers based on the search term
-  const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-
-    if (event.target.value === '') {
-      setFilteredBankers(bankers);  // If search is cleared, show all bankers
-    } else {
+  // Filter bankers based on the search term (either location or banker name)
+  useEffect(() => {
+    if (searchLocation) {
       const filtered = bankers.filter((banker) =>
         banker.locationCategories.some((location) =>
-          location.toLowerCase().includes(event.target.value.toLowerCase())
+          location.toLowerCase().includes(searchLocation.toLowerCase())
         )
       );
-      setFilteredBankers(filtered);  // Filter bankers based on location
+      setFilteredBankers(filtered);
+    } else if (searchBanker) {
+      const filtered = bankers.filter((banker) =>
+        banker.bankerName.toLowerCase().includes(searchBanker.toLowerCase())
+      );
+      setFilteredBankers(filtered);
+    } else {
+      setFilteredBankers(bankers);
     }
+  }, [searchLocation, searchBanker, bankers]);
+
+  // Functions to handle search inputs
+  const handleSearchLocation = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchLocation(event.target.value);
+    setSearchBanker(''); 
   };
 
-  // Function to clear the search term
-  const handleClearSearch = () => {
-    setSearchTerm('');
-    setFilteredBankers(bankers);  // Reset the filtered bankers to all
+  const handleClearSearchLocation = () => {
+    setSearchLocation('');
+    setFilteredBankers(bankers);
   };
 
-  const handleViewMore = (id: string) => {
-    router.push(`/management/bankers/${id}`);
+  const handleSearchBanker = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchBanker(event.target.value);
+    setSearchLocation(''); 
+  };
+
+  const handleClearSearchBanker = () => {
+    setSearchBanker('');
+    setFilteredBankers(bankers);
   };
 
   return (
     <Grid container spacing={4} padding={2}>
       <Grid item xs={12}>
-        {/* Search bar to filter bankers by location */}
-        <TextField
-          label="Search by Location"
-          variant="outlined"
-          value={searchTerm}
-          onChange={handleSearch}
-          fullWidth
-          sx={{ mb: 1, maxWidth: 400 }}  // Set a max width for the search input
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Typography>🔍</Typography> {/* Add a search icon */}
-              </InputAdornment>
-            ),
-            endAdornment: (
-              <InputAdornment position="end">
-                {searchTerm && (
-                  <ClearIcon
-                    onClick={handleClearSearch}
-                    sx={{ cursor: 'pointer', color: 'text.secondary'}} // Clear icon
-                  />
-                )}
-              </InputAdornment>
-            ),
-          }}
-        />
+        <Box display="flex" gap={2}>
+          {/* Search bar to filter bankers by location */}
+          <TextField
+            label="Search by Location"
+            variant="outlined"
+            value={searchLocation}
+            onChange={handleSearchLocation}
+            sx={{ mb: 1, maxWidth: 400 }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Typography>🔍</Typography>
+                </InputAdornment>
+              ),
+              endAdornment: (
+                <InputAdornment position="end">
+                  {searchLocation && (
+                    <ClearIcon
+                      onClick={handleClearSearchLocation}
+                      sx={{ cursor: 'pointer', color: 'text.secondary' }}
+                    />
+                  )}
+                </InputAdornment>
+              ),
+            }}
+            fullWidth
+          />
+          {/* Search bar to filter bankers by Banker*/}
+          <TextField
+            label="Search by Banker"
+            variant="outlined"
+            value={searchBanker}
+            onChange={handleSearchBanker}
+            sx={{ mb: 1, maxWidth: 400 }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Typography>🔍</Typography>
+                </InputAdornment>
+              ),
+              endAdornment: (
+                <InputAdornment position="end">
+                  {searchBanker && (
+                    <ClearIcon
+                      onClick={handleClearSearchBanker}
+                      sx={{ cursor: 'pointer', color: 'text.secondary' }}
+                    />
+                  )}
+                </InputAdornment>
+              ),
+            }}
+            fullWidth
+          />
+        </Box>
       </Grid>
 
       {filteredBankers.map((banker) => (
@@ -144,17 +186,6 @@ const BankerOverview = () => {
                 <strong>Contact:</strong> {banker.contact}
               </Typography>
             </Box>
-
-            {/* <Button
-              variant="contained"
-              color="primary"
-              size="small"
-              fullWidth
-              onClick={() => handleViewMore(banker._id)}
-              sx={{ mt: 2 }}
-            >
-              View More Details
-            </Button> */}
           </Paper>
         </Grid>
       ))}
@@ -162,17 +193,16 @@ const BankerOverview = () => {
   );
 };
 
-// Define TabsContainerWrapper for styling tabs
+// Main page wrapper with tabs and layout
 const TabsContainerWrapper = styled(Box)(({ theme }) => ({
   padding: `0 ${theme.spacing(2)}`,
   position: 'relative',
   bottom: '-1px',
 }));
 
-// Main Component with Tabs and Overview/Searching Logic
 const LendersTasks = () => {
   const [currentTab, setCurrentTab] = useState<string>('overview');
-  const theme = useTheme();  // Now works since useTheme is imported
+  const theme = useTheme();
 
   const tabs = [
     { value: 'overview', label: 'Bankers Directory' },
@@ -211,16 +241,7 @@ const LendersTasks = () => {
             {currentTab === 'overview' && (
               <Grid item xs={12}>
                 <Box p={4}>
-                  {/* Banker Overview */}
                   <BankerOverview />
-                </Box>
-              </Grid>
-            )}
-            {currentTab === 'search' && (
-              <Grid item xs={12}>
-                <Box p={4}>
-                  {/* Search tab content */}
-                  <Box>Search functionality is now integrated in the Overview tab</Box>
                 </Box>
               </Grid>
             )}

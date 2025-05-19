@@ -16,8 +16,8 @@ const DirectoryForm = ({ onSuccess }: { onSuccess: () => void }) => {
   const [form, setForm] = useState({
     fullName: '',
     email: '',
-    role: '',
-    avatar: '',
+    // role: '',
+    // avatar: '',
     profileImage: '',
     contact: '',
     location: '',
@@ -27,7 +27,7 @@ const DirectoryForm = ({ onSuccess }: { onSuccess: () => void }) => {
     previousExperience: [
       {
         currentInstitutionName: '',
-        role: '',
+        // role: '',
         startDate: '',
         endDate: '',
         description: ''
@@ -56,7 +56,7 @@ const DirectoryForm = ({ onSuccess }: { onSuccess: () => void }) => {
         ...prev.previousExperience,
         {
           currentInstitutionName: '',
-          role: '',
+          // role: '',
           startDate: '',
           endDate: '',
           description: ''
@@ -84,8 +84,8 @@ const DirectoryForm = ({ onSuccess }: { onSuccess: () => void }) => {
       setForm({
         fullName: '',
         email: '',
-        role: '',
-        avatar: '',
+        // // role: '',
+        // avatar: '',
         profileImage: '',
         contact: '',
         location: '',
@@ -95,7 +95,7 @@ const DirectoryForm = ({ onSuccess }: { onSuccess: () => void }) => {
         previousExperience: [
           {
             currentInstitutionName: '',
-            role: '',
+            // role: '',
             startDate: '',
             endDate: '',
             description: ''
@@ -131,7 +131,7 @@ const DirectoryForm = ({ onSuccess }: { onSuccess: () => void }) => {
           />
         </Grid>
 
-        {['email', 'role', 'contact', 'location', 'designation'].map((field) => (
+        {['email',  'contact', 'location', 'designation'].map((field) => (
           <Grid item xs={12} sm={6} key={field}>
             <TextField
               fullWidth
@@ -153,7 +153,7 @@ const DirectoryForm = ({ onSuccess }: { onSuccess: () => void }) => {
           />
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        {/* <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
             label="Avatar (optional)"
@@ -161,7 +161,7 @@ const DirectoryForm = ({ onSuccess }: { onSuccess: () => void }) => {
             value={form.avatar}
             onChange={handleChange}
           />
-        </Grid>
+        </Grid> */}
 
         <Grid item xs={12} sm={6}>
           <TextField
@@ -203,7 +203,7 @@ const DirectoryForm = ({ onSuccess }: { onSuccess: () => void }) => {
                     }
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                {/* <Grid item xs={12} sm={6}>
                   <TextField
                     label="Role"
                     fullWidth
@@ -212,7 +212,7 @@ const DirectoryForm = ({ onSuccess }: { onSuccess: () => void }) => {
                       handleExperienceChange(index, 'role', e.target.value)
                     }
                   />
-                </Grid>
+                </Grid> */}
                 <Grid item xs={6} sm={3}>
                   <TextField
                     label="Start Date"
@@ -239,10 +239,10 @@ const DirectoryForm = ({ onSuccess }: { onSuccess: () => void }) => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <TextField
-                    label="Description"
+                    label="Designatation"
                     fullWidth
                     multiline
-                    minRows={2}
+                    minRows={1}
                     value={exp.description}
                     onChange={(e) =>
                       handleExperienceChange(index, 'description', e.target.value)

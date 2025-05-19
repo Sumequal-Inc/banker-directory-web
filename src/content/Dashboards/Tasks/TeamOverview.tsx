@@ -5,13 +5,17 @@ import {
   Avatar,
   Tooltip,
   IconButton,
-  List,
   Divider,
-  useTheme
+  useTheme,
+  Stack,
+  Paper
 } from '@mui/material';
 import PhoneTwoToneIcon from '@mui/icons-material/PhoneTwoTone';
 import EmailTwoToneIcon from '@mui/icons-material/EmailTwoTone';
-// import MessageTwoToneIcon from '@mui/icons-material/MessageTwoTone';
+import BusinessTwoToneIcon from '@mui/icons-material/BusinessTwoTone';
+import LocationOnTwoToneIcon from '@mui/icons-material/LocationOnTwoTone';
+import CalendarMonthTwoToneIcon from '@mui/icons-material/CalendarMonthTwoTone';
+import WorkHistoryTwoToneIcon from '@mui/icons-material/WorkHistoryTwoTone';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -25,7 +29,7 @@ interface Member {
   contact: string;
   email: string;
   location: string;
-  rating?: number;
+  bankName: string; // ✅ Add this to avoid error
 }
 
 const TeamOverview = () => {
@@ -46,92 +50,64 @@ const TeamOverview = () => {
   }, []);
 
   return (
-    <Grid container spacing={4}>
+    <Grid container spacing={3}>
       {members.map((member, index) => (
         <Grid item xs={12} sm={6} md={4} key={index}>
-          <Box
-            textAlign="center"
-            border="1px solid #ddd"
-            borderRadius={2}
-            p={3}
-            boxShadow={2}
-            bgcolor={theme.palette.background.paper}
+          <Paper
+            elevation={3}
+            sx={{
+              p: 3,
+              borderRadius: 3,
+              transition: 'transform 0.3s',
+              '&:hover': {
+                transform: 'translateY(-5px)',
+                boxShadow: theme.shadows[6]
+              }
+            }}
           >
-            <Avatar
-              sx={{
-                mx: 'auto',
-                mb: 1.5,
-                width: theme.spacing(12),
-                height: theme.spacing(12)
-              }}
-              variant="rounded"
-              alt={member.fullName}
-              src={member.profileImage}
-            />
+            <Box textAlign="center">
+              <Avatar
+                src={member.profileImage}
+                alt={member.fullName}
+                sx={{
+                  width: theme.spacing(12),
+                  height: theme.spacing(12),
+                  mx: 'auto',
+                  mb: 2,
+                  border: `3px solid ${theme.palette.primary.main}`
+                }}
+              />
+              <Typography variant="h5" fontWeight={600}>
+                {member.fullName}
+              </Typography>
+              <Typography variant="subtitle2" color="text.secondary">
+                {member.designation} @ {member.currentInstitutionName}
+              </Typography>
 
-            <Typography variant="h4" gutterBottom>
-              {member.fullName}
-            </Typography>
-            <Typography variant="subtitle2" gutterBottom>
-              {member.designation} {member.currentInstitutionName}
-            </Typography>
-
-            {/* Icons with Hover Tooltips */}
-            <Box py={2} display="flex" alignItems="center" justifyContent="center">
-              <Tooltip title={member.contact || 'No contact available'} arrow>
-                <IconButton color="primary" sx={{ mx: 0.5 }}>
-                  <PhoneTwoToneIcon />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title={member.email || 'No email available'} arrow>
-                <IconButton color="primary" sx={{ mx: 0.5 }}>
-                  <EmailTwoToneIcon />
-                </IconButton>
-              </Tooltip>
-              {/* <Tooltip title="Send message" arrow>
-                <IconButton color="primary" sx={{ mx: 0.5 }}>
-                  <MessageTwoToneIcon />
-                </IconButton>
-              </Tooltip> */}
+              <Box display="flex" justifyContent="center" mt={2} mb={1}>
+                <Tooltip title={member.contact || 'No contact'} arrow>
+                  <IconButton color="primary">
+                    <PhoneTwoToneIcon />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title={member.email || 'No email'} arrow>
+                  <IconButton color="primary">
+                    <EmailTwoToneIcon />
+                  </IconButton>
+                </Tooltip>
+              </Box>
             </Box>
 
-            <List sx={{ textAlign: 'left', mt: 2 }}>
-              <Box component="li" py={1}>
-                <Typography variant="subtitle2">Join Date</Typography>
-                <Typography variant="subtitle2" color="text.primary">
-                  {new Date(member.dateOfJoining).toLocaleDateString()}
-                </Typography>
-              </Box>
-              <Divider />
-              <Box component="li" py={1}>
-                <Typography variant="subtitle2">Experience</Typography>
-                <Typography variant="subtitle2" color="text.primary">
-                  {member.totalExperience}
-                </Typography>
-              </Box>
-              <Divider />
-              <Box component="li" py={1}>
-                <Typography variant="subtitle2">bank</Typography>
-                <Typography variant="subtitle2" color="text.primary">
-                  {member.bankName}
-                </Typography>
-              </Box>
-              <Divider />
-              <Box component="li" py={1}>
-                <Typography variant="subtitle2">Email</Typography>
-                <Typography variant="subtitle2" color="text.primary">
-                  {member.email}
-                </Typography>
-              </Box>
-              <Divider />
-              <Box component="li" py={1}>
-                <Typography variant="subtitle2">Location</Typography>
-                <Typography variant="subtitle2" color="text.primary">
-                  {member.location}
-                </Typography>
-              </Box>
-            </List>
-          </Box>
+            <Divider sx={{ my: 2 }} />
+
+            <Stack spacing={1}>
+              <InfoRow icon={<CalendarMonthTwoToneIcon />} label="Join Date" value={new Date(member.dateOfJoining).toLocaleDateString()} />
+              <InfoRow icon={<WorkHistoryTwoToneIcon />} label="Experience" value={member.totalExperience} />
+              <InfoRow icon={<BusinessTwoToneIcon />} label="Bank" value={member.bankName} />
+              <InfoRow icon={<EmailTwoToneIcon />} label="Email" value={member.email} />
+              <InfoRow icon={<LocationOnTwoToneIcon />} label="Location" value={member.location} />
+            </Stack>
+          </Paper>
         </Grid>
       ))}
     </Grid>
@@ -139,3 +115,26 @@ const TeamOverview = () => {
 };
 
 export default TeamOverview;
+
+// ✅ Reusable InfoRow Component
+const InfoRow = ({
+  icon,
+  label,
+  value
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: string;
+}) => {
+  return (
+    <Box display="flex" alignItems="center" gap={1}>
+      <Box color="primary.main">{icon}</Box>
+      <Typography variant="body2" fontWeight={500}>
+        {label}:
+      </Typography>
+      <Typography variant="body2" color="text.secondary">
+        {value}
+      </Typography>
+    </Box>
+  );
+};

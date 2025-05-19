@@ -13,6 +13,7 @@ const BankerDirectoryForm = ({ onSuccess }: { onSuccess: () => void }) => {
     emailOfficial: '',
     emailPersonal: '',
     contact: '',
+    lastCurrentDesignation: '',
     product: [''],
   });
 
@@ -21,7 +22,7 @@ const BankerDirectoryForm = ({ onSuccess }: { onSuccess: () => void }) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    setForm(prev => ({ ...prev, [name]: value }));
   };
 
   const handleLocationChange = (index: number, value: string) => {
@@ -31,7 +32,7 @@ const BankerDirectoryForm = ({ onSuccess }: { onSuccess: () => void }) => {
   };
 
   const addLocationCategory = () => {
-    setForm((prev) => ({
+    setForm(prev => ({
       ...prev,
       locationCategories: [...prev.locationCategories, ''],
     }));
@@ -49,7 +50,7 @@ const BankerDirectoryForm = ({ onSuccess }: { onSuccess: () => void }) => {
   };
 
   const addProduct = () => {
-    setForm((prev) => ({
+    setForm(prev => ({
       ...prev,
       product: [...prev.product, ''],
     }));
@@ -60,34 +61,34 @@ const BankerDirectoryForm = ({ onSuccess }: { onSuccess: () => void }) => {
     setForm({ ...form, product: updated });
   };
 
-  const handleSubmit = async () => {
-    if (!form.bankerName.trim()) {
-      setError('Banker Name is required.');
-      return;
-    }
-
-    try {
-      const res = await axios.post('http://localhost:3001/banker-directory/create-directories', form);
-      console.log('Directory created:', res.data);
-
-      setSuccessOpen(true);
-      setForm({
-        bankerName: '',
-        associatedWith: '',
-        locationCategories: [''],
-        emailOfficial: '',
-        emailPersonal: '',
-        contact: '',
-        product: [''],
-      });
-      setError('');
-      onSuccess();
-    } catch (err: any) {
-      console.error('Submit error:', err.response?.data || err.message);
-      const message = err?.response?.data?.message || 'Something went wrong';
-      setError(Array.isArray(message) ? message.join(', ') : message);
-    }
+const handleSubmit = async () => {
+  setError('');
+  const payload = {
+    ...form,
+    emailOfficial: form.emailOfficial.trim() === '' ? undefined : form.emailOfficial.trim(),
+    emailPersonal: form.emailPersonal.trim() === '' ? undefined : form.emailPersonal.trim(),
   };
+
+  try {
+    const res = await axios.post('http://localhost:3001/banker-directory/create-directories', payload);  // <-- payload yahan pass karna hai
+    setSuccessOpen(true);
+    setForm({
+      bankerName: '',
+      associatedWith: '',
+      locationCategories: [''],
+      emailOfficial: '',
+      emailPersonal: '',
+      contact: '',
+      lastCurrentDesignation: '',
+      product: [''],
+    });
+    onSuccess();
+  } catch (err: any) {
+    const message = err?.response?.data?.message || 'Something went wrong';
+    setError(Array.isArray(message) ? message.join(', ') : message);
+  }
+};
+
 
   return (
     <Box p={3}>
@@ -98,121 +99,83 @@ const BankerDirectoryForm = ({ onSuccess }: { onSuccess: () => void }) => {
       {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
 
       <Grid container spacing={2}>
+        {/* Banker Name */}
         <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            required
-            label="Banker Name"
-            name="bankerName"
-            value={form.bankerName}
-            onChange={handleChange}
-          />
+          <TextField fullWidth label="Banker Name" name="bankerName" value={form.bankerName} onChange={handleChange} />
         </Grid>
 
+        {/* Associated With */}
         <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            required
-            label="Associated With"
-            name="associatedWith"
-            value={form.associatedWith}
-            onChange={handleChange}
-          />
+          <TextField fullWidth label="Associated With" name="associatedWith" value={form.associatedWith} onChange={handleChange} />
         </Grid>
 
         {/* Location Categories */}
         <Grid item xs={12}>
-          <Typography variant="h6" gutterBottom>
-            Location Categories
-          </Typography>
-          {form.locationCategories.map((category, index) => (
-            <Grid container spacing={2} key={index}>
+          <Typography variant="h6" gutterBottom>Location Serve</Typography>
+          {form.locationCategories.map((cat, idx) => (
+            <Grid container spacing={2} key={idx} alignItems="center">
               <Grid item xs={10}>
-                <TextField
-                  fullWidth
-                  label={`Category ${index + 1}`}
-                  value={category}
-                  onChange={(e) => handleLocationChange(index, e.target.value)}
-                />
+                <TextField fullWidth label={`Category ${idx + 1}`} value={cat} onChange={e => handleLocationChange(idx, e.target.value)} />
               </Grid>
               <Grid item xs={2}>
                 {form.locationCategories.length > 1 && (
-                  <IconButton onClick={() => removeLocationCategory(index)}>
+                  <IconButton onClick={() => removeLocationCategory(idx)}>
                     <DeleteIcon color="error" />
                   </IconButton>
                 )}
               </Grid>
             </Grid>
           ))}
-          <Button variant="outlined" onClick={addLocationCategory}>
+          <Button variant="outlined" onClick={addLocationCategory} sx={{ mt: 1 }}>
             + Add Location
           </Button>
         </Grid>
 
+        {/* Official Email */}
         <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            required
-            label="Official Email"
-            name="emailOfficial"
-            value={form.emailOfficial}
-            onChange={handleChange}
-          />
+          <TextField fullWidth label="Official Email" name="emailOfficial" value={form.emailOfficial} onChange={handleChange} />
         </Grid>
 
+        {/* Personal Email */}
         <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            label="Personal Email"
-            name="emailPersonal"
-            value={form.emailPersonal}
-            onChange={handleChange}
-          />
+          <TextField fullWidth label="Personal Email" name="emailPersonal" value={form.emailPersonal} onChange={handleChange} />
         </Grid>
 
+        {/* Contact */}
         <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            label="Contact"
-            name="contact"
-            value={form.contact}
-            onChange={handleChange}
-          />
+          <TextField fullWidth label="Contact" name="contact" value={form.contact} onChange={handleChange} />
         </Grid>
 
-        {/* Product (Array) */}
+        {/* Last/Current Designation */}
+        <Grid item xs={12} sm={6}>
+          <TextField fullWidth label="Last/Current Designation" name="lastCurrentDesignation" value={form.lastCurrentDesignation} onChange={handleChange} />
+        </Grid>
+
+        {/* Product Categories */}
         <Grid item xs={12}>
-          <Typography variant="h6" gutterBottom>
-            Product Categories
-          </Typography>
-          {form.product.map((item, index) => (
-            <Grid container spacing={2} key={index}>
+          <Typography variant="h6" gutterBottom>Product Categories</Typography>
+          {form.product.map((item, idx) => (
+            <Grid container spacing={2} key={idx} alignItems="center">
               <Grid item xs={10}>
-                <TextField
-                  fullWidth
-                  label={`Product ${index + 1}`}
-                  value={item}
-                  onChange={(e) => handleProductChange(index, e.target.value)}
-                />
+                <TextField fullWidth label={`Product ${idx + 1}`} value={item} onChange={e => handleProductChange(idx, e.target.value)} />
               </Grid>
               <Grid item xs={2}>
                 {form.product.length > 1 && (
-                  <IconButton onClick={() => removeProduct(index)}>
+                  <IconButton onClick={() => removeProduct(idx)}>
                     <DeleteIcon color="error" />
                   </IconButton>
                 )}
               </Grid>
             </Grid>
           ))}
-          <Button variant="outlined" onClick={addProduct}>
+          <Button variant="outlined" onClick={addProduct} sx={{ mt: 1 }}>
             + Add Product
           </Button>
         </Grid>
 
+        {/* Submit */}
         <Grid item xs={12}>
-          <Button variant="contained" onClick={handleSubmit}>
-            Submit
-          </Button>
+          <Button variant="contained" onClick={handleSubmit}>Submit</Button>
         </Grid>
       </Grid>
 
