@@ -12,7 +12,10 @@ import {
   Card,
   Box,
   useTheme,
-  styled
+  styled,
+  Paper,
+  Typography,
+  Fade
 } from '@mui/material';
 import PageTitleWrapper from '@/components/PageTitleWrapper';
 
@@ -24,96 +27,56 @@ import Checklist from '@/content/Dashboards/Tasks/Checklist';
 import Profile from '@/content/Dashboards/Tasks/Profile';
 import TaskSearch from '@/content/Dashboards/Tasks/TaskSearch';
 
+import PeopleIcon from '@mui/icons-material/People';
+import SearchIcon from '@mui/icons-material/Search';
+
 const TabsContainerWrapper = styled(Box)(
   ({ theme }) => `
-      padding: 0 ${theme.spacing(2)};
-      position: relative;
-      bottom: -1px;
+    padding: ${theme.spacing(0, 1)};
+    margin-bottom: ${theme.spacing(2)};
+    border-bottom: 1px solid ${theme.palette.divider};
 
-      .MuiTabs-root {
-        height: 44px;
-        min-height: 44px;
+    .MuiTabs-root {
+      min-height: 40px;
+    }
+
+    .MuiTab-root {
+      font-size: ${theme.typography.pxToRem(13)};
+      padding: ${theme.spacing(1.2, 2)};
+      min-height: 40px;
+      text-transform: none;
+      gap: ${theme.spacing(1)};
+    }
+
+    .MuiTabs-indicator {
+      display: flex;
+      justify-content: center;
+
+      &::after {
+        content: '';
+        width: 30px;
+        height: 3px;
+        background-color: ${theme.palette.primary.main};
+        border-radius: 2px;
       }
-
-      .MuiTabs-scrollableX {
-        overflow-x: auto !important;
-      }
-
-      .MuiTabs-indicator {
-          min-height: 4px;
-          height: 4px;
-          box-shadow: none;
-          bottom: -4px;
-          background: none;
-          border: 0;
-
-          &:after {
-            position: absolute;
-            left: 50%;
-            width: 28px;
-            content: ' ';
-            margin-left: -14px;
-            background: ${theme.colors.primary.main};
-            border-radius: inherit;
-            height: 100%;
-          }
-      }
-
-      .MuiTab-root {
-          &.MuiButtonBase-root {
-              height: 44px;
-              min-height: 44px;
-              background: ${theme.colors.alpha.white[50]};
-              border: 1px solid ${theme.colors.alpha.black[10]};
-              border-bottom: 0;
-              position: relative;
-              margin-right: ${theme.spacing(1)};
-              font-size: ${theme.typography.pxToRem(14)};
-              color: ${theme.colors.alpha.black[80]};
-              border-bottom-left-radius: 0;
-              border-bottom-right-radius: 0;
-
-              .MuiTouchRipple-root {
-                opacity: .1;
-              }
-
-              &:after {
-                position: absolute;
-                left: 0;
-                right: 0;
-                width: 100%;
-                bottom: 0;
-                height: 1px;
-                content: '';
-                background: ${theme.colors.alpha.black[10]};
-              }
-
-              &:hover {
-                color: ${theme.colors.alpha.black[100]};
-              }
-          }
-
-          &.Mui-selected {
-              color: ${theme.colors.alpha.black[100]};
-              background: ${theme.colors.alpha.white[100]};
-              border-bottom-color: ${theme.colors.alpha.white[100]};
-
-              &:after {
-                height: 0;
-              }
-          }
-      }
+    }
   `
 );
 
+const SectionCard = styled(Card)(({ theme }) => ({
+  padding: theme.spacing(3),
+  background: theme.palette.background.paper,
+  boxShadow: theme.shadows[1],
+  borderRadius: theme.shape.borderRadius
+}));
+
 function DashboardTasks() {
   const theme = useTheme();
-
-  const [currentTab, setCurrentTab] = useState<string>('analytics');
+  const [currentTab, setCurrentTab] = useState<string>('bankers');
 
   const tabs = [
-    { value: 'bankers', label: 'Bankers Overview' },
-    { value: 'bankersSearch', label: 'Bankers Search' }
+    { value: 'bankers', label: 'Overview', icon: <PeopleIcon fontSize="small" /> },
+    // { value: 'bankersSearch', label: 'Search', icon: <SearchIcon fontSize="small" /> }
   ];
 
   const handleTabsChange = (_event: ChangeEvent<{}>, value: string): void => {
@@ -125,9 +88,11 @@ function DashboardTasks() {
       <Head>
         <title>Bankers Directory</title>
       </Head>
+
       <PageTitleWrapper>
         <PageHeader />
       </PageTitleWrapper>
+
       <Container maxWidth="lg">
         <TabsContainerWrapper>
           <Tabs
@@ -139,87 +104,83 @@ function DashboardTasks() {
             indicatorColor="primary"
           >
             {tabs.map((tab) => (
-              <Tab key={tab.value} label={tab.label} value={tab.value} />
+              <Tab
+                key={tab.value}
+                value={tab.value}
+                label={
+                  <Box display="flex" alignItems="center">
+                    {tab.icon}
+                    {tab.label}
+                  </Box>
+                }
+              />
             ))}
           </Tabs>
         </TabsContainerWrapper>
-        <Card variant="outlined">
-          <Grid
-            container
-            direction="row"
-            justifyContent="center"
-            alignItems="stretch"
-            spacing={0}
-          >
-            {currentTab === 'analytics' && (
-              <>
-                <Grid item xs={12}>
-                  <Box p={4}>
+
+        <Fade in timeout={400}>
+          <SectionCard>
+            <Grid container spacing={3}>
+              {currentTab === 'bankers' && (
+                <>
+                  <Grid item xs={12}>
                     <TeamOverview />
-                  </Box>
-                </Grid>
-                <Grid item xs={12}>
-                  <Divider />
-                  <Box
-                    p={4}
-                    sx={{
-                      background: `${theme.colors.alpha.black[5]}`
-                    }}
-                  >
-                    <Grid container spacing={4}>
-                      <Grid item xs={12} sm={6} md={8}>
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <Divider sx={{ my: 2 }} />
+                    <Grid container spacing={3}>
+                      <Grid item xs={12} md={8}>
                         <TasksAnalytics />
                       </Grid>
-                      <Grid item xs={12} sm={6} md={4}>
+                      <Grid item xs={12} md={4}>
                         <Performance />
                       </Grid>
                     </Grid>
-                  </Box>
-                  <Divider />
-                </Grid>
-                <Grid item xs={12}>
-                  <Box p={4}>
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <Divider sx={{ my: 2 }} />
                     <Projects />
-                  </Box>
-                  <Divider />
-                </Grid>
-                <Grid item xs={12}>
-                  <Box
-                    sx={{
-                      background: `${theme.colors.alpha.black[5]}`
-                    }}
-                  >
-                    <Grid container spacing={0}>
+                  </Grid>
+
+                  <Grid item xs={12}>
+                    <Divider sx={{ my: 2 }} />
+                    <Grid container spacing={3}>
                       <Grid item xs={12} md={6}>
-                        <Box
-                          p={4}
+                        <Checklist />
+                      </Grid>
+                      <Grid item xs={12} md={6}>
+                        <Paper
+                          elevation={4}
                           sx={{
-                            background: `${theme.colors.alpha.white[70]}`
+                            p: 3,
+                            backgroundColor: theme.palette.grey[100],
+                            borderRadius: 2,
+                            height: '100%'
                           }}
                         >
-                          <Checklist />
-                        </Box>
-                      </Grid>
-                      <Grid item xs={12} md={6}>
-                        <Box p={4}>
+                          <Typography variant="h6" gutterBottom>
+                            Banker Profile
+                          </Typography>
                           <Profile />
-                        </Box>
+                        </Paper>
                       </Grid>
                     </Grid>
-                  </Box>
-                </Grid>
-              </>
-            )}
-            {/* {currentTab === 'taskSearch' && (
-              <Grid item xs={12}>
-                <Box p={4}>
+                  </Grid>
+                </>
+              )}
+{/* 
+              {currentTab === 'bankersSearch' && (
+                <Grid item xs={12}>
                   <TaskSearch />
-                </Box>
-              </Grid>
-            )} */}
-          </Grid>
-        </Card>
+                </Grid>
+              )} */}
+            </Grid>
+          </SectionCard>
+        </Fade>
       </Container>
+
       <Footer />
     </>
   );
