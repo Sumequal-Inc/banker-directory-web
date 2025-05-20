@@ -23,7 +23,7 @@ interface Banker {
   product: string[];
 }
 
-// BankerOverview Component to display all bankers or filter them by location or banker name
+
 const BankerOverview = () => {
   const [bankers, setBankers] = useState<Banker[]>([]);
   const [filteredBankers, setFilteredBankers] = useState<Banker[]>([]);
@@ -31,15 +31,15 @@ const BankerOverview = () => {
   const [searchBanker, setSearchBanker] = useState('');
 
 
-  useEffect(() => {
-    axios
-      .get('http://localhost:3001/banker-directory/get-directories')
-      .then((res) => {
-        setBankers(res.data);
-        setFilteredBankers(res.data);  
-      })
-      .catch((err) => console.error('Error fetching bankers:', err));
-  }, []);
+ useEffect(() => {
+  axios
+    .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/banker-directory/get-directories`)
+    .then((res) => {
+      setBankers(res.data);
+      setFilteredBankers(res.data);
+    })
+    .catch((err) => console.error('Error fetching bankers:', err));
+}, []);
 
   // Filter bankers based on the search term (either location or banker name)
   useEffect(() => {

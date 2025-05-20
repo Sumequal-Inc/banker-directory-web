@@ -29,8 +29,7 @@ const BankerOverview = () => {
   const router = useRouter();
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/banker-directory/get-directories')
+   axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/banker-directory/get-directories`)
       .then((res) => setBankers(res.data))
       .catch((err) => console.error('Error fetching bankers:', err));
   }, []);

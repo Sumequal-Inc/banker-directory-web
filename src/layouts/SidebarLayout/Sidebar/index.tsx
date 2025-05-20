@@ -9,7 +9,6 @@ import {
   styled,
   Divider,
   useTheme,
-  Button,
   lighten,
   darken
 } from '@mui/material';
@@ -55,7 +54,7 @@ function Sidebar() {
         <Scrollbar>
        <Box mt={0} display="flex" justifyContent="center">
 <Box sx={{ width: 80 }}>
-  <a href="http://localhost:3000">
+  <a href="https://peaceful-selkie-16b712.netlify.app/">
     <img
       src="/static/images/logo/f2fin.png"
       alt="F2Fin Logo"

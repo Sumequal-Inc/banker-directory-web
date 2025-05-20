@@ -51,10 +51,10 @@ function LoginPage() {
     try {
       console.log('Login Payload:', { email: username, password });
 
-      const response = await axios.post('http://localhost:3001/auth/login', {
-        email: username,
-        password
-      });
+      const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`,
+      { email: username, password }
+      );
 
       const { access_token } = response.data;
       console.log('Access Token:', access_token);

@@ -13,9 +13,7 @@ import {
   TablePagination,
   TableRow,
   TableContainer,
-  Select,
-  MenuItem,
-  Typography,
+  
   useTheme,
   CardHeader,
   CircularProgress
@@ -52,20 +50,21 @@ const RecentLendersTable: FC = () => {
   const theme = useTheme();
 
   // API Call
-  useEffect(() => {
-    const fetchLenders = async () => {
-      try {
-        const res = await axios.get('http://localhost:3001/lenders/get-lenders');
-        setLenders(res.data);
-      } catch (error) {
-        console.error('Error fetching lenders:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+useEffect(() => {
+  const fetchLenders = async () => {
+    try {
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/lenders/get-lenders`);
+      setLenders(res.data);
+    } catch (error) {
+      console.error('Error fetching lenders:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchLenders();
-  }, []);
+  fetchLenders();
+}, []);
+
 
   // Pagination
   const paginatedLenders = lenders.slice(page * limit, page * limit + limit);

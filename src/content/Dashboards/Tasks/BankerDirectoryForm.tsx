@@ -70,7 +70,10 @@ const handleSubmit = async () => {
   };
 
   try {
-    await axios.post('http://localhost:3001/banker-directory/create-directories', payload);
+    await axios.post(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/banker-directory/create-directories`,
+      payload
+    );
     setSuccessOpen(true);
     setForm({
       bankerName: '',
@@ -88,6 +91,7 @@ const handleSubmit = async () => {
     setError(Array.isArray(message) ? message.join(', ') : message);
   }
 };
+
 
 
   return (

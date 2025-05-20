@@ -36,18 +36,18 @@ const TeamOverview = () => {
   const theme = useTheme();
   const [members, setMembers] = useState<Member[]>([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get('http://localhost:3001/bankers/get-bankers');
-        setMembers(Array.isArray(res.data.data) ? res.data.data : res.data);
-      } catch (error) {
-        console.error('Error fetching directory:', error);
-      }
-    };
+ useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/bankers/get-bankers`);
+      setMembers(Array.isArray(res.data.data) ? res.data.data : res.data);
+    } catch (error) {
+      console.error('Error fetching directory:', error);
+    }
+  };
 
-    fetchData();
-  }, []);
+  fetchData();
+}, []);
 
   return (
     <Grid container spacing={3}>
