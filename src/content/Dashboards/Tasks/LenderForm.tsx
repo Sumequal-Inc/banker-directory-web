@@ -10,23 +10,24 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 
-const LenderForm = ({ onSuccess }: { onSuccess: () => void }) => {
-  const [form, setForm] = useState({
-    lenderName: '',
-    state: '',
-    city: '',
-    managerName: '',
-    bankerName: '',
-    email: '',
-    rmName: '',
-    rmContact: '',
-    asmName: '',
-    asmContact: '',
-    rsmName: '',
-    rsmContact: '',
-    zsmName: ''
-  });
+const initialForm = {
+  lenderName: '',
+  state: '',
+  city: '',
+  managerName: '',
+  bankerName: '',
+  email: '',
+  rmName: '',
+  rmContact: '',
+  asmName: '',
+  asmContact: '',
+  rsmName: '',
+  rsmContact: '',
+  zsmName: ''
+};
 
+const LenderForm = ({ onSuccess }: { onSuccess: () => void }) => {
+  const [form, setForm] = useState(initialForm);
   const [error, setError] = useState('');
   const [successOpen, setSuccessOpen] = useState(false);
 
@@ -46,20 +47,7 @@ const LenderForm = ({ onSuccess }: { onSuccess: () => void }) => {
       console.log('Lender created:', res.data);
 
       setSuccessOpen(true);
-      setForm({
-        lenderName: '',
-        state: '',
-        city: '',
-        bankerName: '',
-        email: '',
-        rmName: '',
-        rmContact: '',
-        asmName: '',
-        asmContact: '',
-        rsmName: '',
-        rsmContact: '',
-        zsmName: ''
-      });
+      setForm(initialForm); // Reset using initialForm for consistency
       setError('');
       onSuccess();
     } catch (err: any) {
@@ -82,7 +70,7 @@ const LenderForm = ({ onSuccess }: { onSuccess: () => void }) => {
           { name: 'lenderName', label: 'Lender Name' },
           { name: 'state', label: 'State' },
           { name: 'city', label: 'City' },
-          
+          { name: 'managerName', label: 'Manager Name' },
           { name: 'bankerName', label: 'Banker Name' },
           { name: 'email', label: 'Email' },
           { name: 'rmName', label: 'RM Name' },

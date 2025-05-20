@@ -10,13 +10,11 @@ import {
   Container,
   Card,
   Box,
-  useTheme,
   styled
 } from '@mui/material';
 import PageTitleWrapper from '@/components/PageTitleWrapper';
 
 import LenderOverview from '@/content/Dashboards/LenderOverview';
-
 
 const TabsContainerWrapper = styled(Box)(
   ({ theme }) => `
@@ -27,7 +25,6 @@ const TabsContainerWrapper = styled(Box)(
 );
 
 function LendersTasks() {
-  const theme = useTheme();
   const [currentTab, setCurrentTab] = useState<string>('overview');
 
   const tabs = [

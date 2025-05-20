@@ -29,7 +29,7 @@ interface Member {
   contact: string;
   email: string;
   location: string;
-  bankName: string; // ✅ Add this to avoid error
+  bankName: string; 
 }
 
 const TeamOverview = () => {
@@ -116,7 +116,6 @@ const TeamOverview = () => {
 
 export default TeamOverview;
 
-// ✅ Reusable InfoRow Component
 const InfoRow = ({
   icon,
   label,

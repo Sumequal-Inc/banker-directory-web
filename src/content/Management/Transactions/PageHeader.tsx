@@ -1,12 +1,6 @@
-import { Typography, Button, Grid } from '@mui/material';
-
-import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
+import { Typography, Grid } from '@mui/material';
 
 function PageHeader() {
-  const user = {
-    name: '',
-    avatar: '/static/images/avatars/1.jpg'
-  };
   return (
     <Grid container justifyContent="space-between" alignItems="center">
       <Grid item>
@@ -14,17 +8,8 @@ function PageHeader() {
           Lenders
         </Typography>
         <Typography variant="subtitle2">
-        "Explore the complete list of lenders and their details below."
+          Explore the complete list of lenders and their details below.
         </Typography>
-      </Grid>
-      <Grid item>
-        {/* <Button
-          sx={{ mt: { xs: 2, md: 0 } }}
-          variant="contained"
-          startIcon={<AddTwoToneIcon fontSize="small" />}
-        >
-          Create transaction
-        </Button> */}
       </Grid>
     </Grid>
   );

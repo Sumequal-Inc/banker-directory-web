@@ -61,7 +61,7 @@ const DialogTitleWrapper = styled(DialogTitle)(
 `
 );
 
-// 1. This is your mock dataset. Replace with your actual data!
+// 1. Mock dataset for search results
 const searchData = [
   {
     title: 'Dashboard for Healthcare Platform',
@@ -159,7 +159,7 @@ function HeaderSearch() {
             <List disablePadding>
               {/* 3. Show filtered results */}
               {filteredResults.length > 0 ? (
-                filteredResults.map((item, idx) => (
+                filteredResults.map((item) => (
                   <div key={item.title}>
                     <ListItem button component="a" href={item.href}>
                       <Hidden smDown>
