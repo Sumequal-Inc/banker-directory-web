@@ -42,8 +42,12 @@ const LenderForm = ({ onSuccess }: { onSuccess: () => void }) => {
       return;
     }
 
-    try {
-      const res = await axios.post('http://localhost:3001/lenders/create-lender', form);
+  try {
+  const res = await axios.post(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/lenders/create-lender`,
+    form
+  );
+      
       console.log('Lender created:', res.data);
 
       setSuccessOpen(true);

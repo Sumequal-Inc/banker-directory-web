@@ -67,36 +67,36 @@ function Performance() {
   const [bankerCount, setBankerCount] = useState(0);
   const [lenderCount, setLenderCount] = useState(0);
 
-  useEffect(() => {
-    const fetchCounts = async () => {
-      try {
-        const [lendersRes, bankersRes] = await Promise.all([
-          axios.get('http://localhost:3001/lenders/get-lenders'),
-          axios.get('http://localhost:3001/directories/get-directories')
-        ]);
+ useEffect(() => {
+  const fetchCounts = async () => {
+    try {
+      const [lendersRes, bankersRes] = await Promise.all([
+        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/lenders/get-lenders`),
+        axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/directories/get-directories`)
+      ]);
 
-        // Debug: Show response structure
-        console.log('Lenders Response:', lendersRes.data);
-        console.log('Directories Response:', bankersRes.data);
+      // Debug: Show response structure
+      console.log('Lenders Response:', lendersRes.data);
+      console.log('Directories Response:', bankersRes.data);
 
-        // Handles both direct array or nested under "data"
-        const lendersData = Array.isArray(lendersRes.data)
-          ? lendersRes.data
-          : lendersRes.data.data;
+      // Handles both direct array or nested under "data"
+      const lendersData = Array.isArray(lendersRes.data)
+        ? lendersRes.data
+        : lendersRes.data.data;
 
-        const bankersData = Array.isArray(bankersRes.data)
-          ? bankersRes.data
-          : bankersRes.data.data;
+      const bankersData = Array.isArray(bankersRes.data)
+        ? bankersRes.data
+        : bankersRes.data.data;
 
-        setLenderCount(lendersData?.length || 0);
-        setBankerCount(bankersData?.length || 0);
-      } catch (error) {
-        console.error('Error fetching counts:', error);
-      }
-    };
+      setLenderCount(lendersData?.length || 0);
+      setBankerCount(bankersData?.length || 0);
+    } catch (error) {
+      console.error('Error fetching counts:', error);
+    }
+  };
 
-    fetchCounts();
-  }, []);
+  fetchCounts();
+}, []);
 
   const total = bankerCount + lenderCount;
   const completionRate = total === 0 ? 0 : Math.round((lenderCount / total) * 100);

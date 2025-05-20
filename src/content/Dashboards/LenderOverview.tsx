@@ -26,13 +26,16 @@ const LenderOverview = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/lenders/get-lenders')
+    .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/lenders/get-lenders`)
+      
       .then((res) => setLenders(res.data))
       .catch((err) => console.error('Error fetching lenders:', err));
   }, []);
 
   const handleViewMore = () => {
-    router.push('http://localhost:3000/management/lenders');
+    router.push(`${process.env.NEXT_PUBLIC_BACKEND_URL}/management/lenders`)
+  
+    
   };
 
   return (
