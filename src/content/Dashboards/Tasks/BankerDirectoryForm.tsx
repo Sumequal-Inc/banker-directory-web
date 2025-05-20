@@ -70,7 +70,7 @@ const handleSubmit = async () => {
   };
 
   try {
-    const res = await axios.post('http://localhost:3001/banker-directory/create-directories', payload);  // <-- payload yahan pass karna hai
+    await axios.post('http://localhost:3001/banker-directory/create-directories', payload);
     setSuccessOpen(true);
     setForm({
       bankerName: '',

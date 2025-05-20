@@ -20,15 +20,13 @@ import {
 import PageTitleWrapper from '@/components/PageTitleWrapper';
 
 import TeamOverview from '@/content/Dashboards/Tasks/TeamOverview';
-import TasksAnalytics from '@/content/Dashboards/Tasks/TasksAnalytics';
+
 import Performance from '@/content/Dashboards/Tasks/Performance';
-import Projects from '@/content/Dashboards/Tasks/Projects';
-import Checklist from '@/content/Dashboards/Tasks/Checklist';
-import Profile from '@/content/Dashboards/Tasks/Profile';
-import TaskSearch from '@/content/Dashboards/Tasks/TaskSearch';
+
+
+
 
 import PeopleIcon from '@mui/icons-material/People';
-import SearchIcon from '@mui/icons-material/Search';
 
 const TabsContainerWrapper = styled(Box)(
   ({ theme }) => `
@@ -76,7 +74,7 @@ function DashboardTasks() {
 
   const tabs = [
     { value: 'bankers', label: 'Overview', icon: <PeopleIcon fontSize="small" /> },
-    // { value: 'bankersSearch', label: 'Search', icon: <SearchIcon fontSize="small" /> }
+   
   ];
 
   const handleTabsChange = (_event: ChangeEvent<{}>, value: string): void => {
@@ -90,7 +88,8 @@ function DashboardTasks() {
       </Head>
 
       <PageTitleWrapper>
-        <PageHeader />
+       <PageHeader onCreated={() => {}} />
+
       </PageTitleWrapper>
 
       <Container maxWidth="lg">
@@ -131,7 +130,7 @@ function DashboardTasks() {
                     <Divider sx={{ my: 2 }} />
                     <Grid container spacing={3}>
                       <Grid item xs={12} md={8}>
-                        <TasksAnalytics />
+
                       </Grid>
                       <Grid item xs={12} md={4}>
                         <Performance />
@@ -141,14 +140,14 @@ function DashboardTasks() {
 
                   <Grid item xs={12}>
                     <Divider sx={{ my: 2 }} />
-                    <Projects />
+                  
                   </Grid>
 
                   <Grid item xs={12}>
                     <Divider sx={{ my: 2 }} />
                     <Grid container spacing={3}>
                       <Grid item xs={12} md={6}>
-                        <Checklist />
+                     
                       </Grid>
                       <Grid item xs={12} md={6}>
                         <Paper
@@ -163,7 +162,7 @@ function DashboardTasks() {
                           <Typography variant="h6" gutterBottom>
                             Banker Profile
                           </Typography>
-                          <Profile />
+                         
                         </Paper>
                       </Grid>
                     </Grid>

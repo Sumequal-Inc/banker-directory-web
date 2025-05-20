@@ -1,5 +1,5 @@
 import {
-  Box,
+
   Tooltip,
   Badge,
   TooltipProps,

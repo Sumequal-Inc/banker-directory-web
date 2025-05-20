@@ -4,9 +4,9 @@ import { ChangeEvent, useState, useEffect } from 'react';
 import PageHeader from '@/content/Dashboards/Tasks/PageHeader';
 import Footer from '@/components/Footer';
 import { Box, Grid, Tab, Tabs, Typography, Avatar, Paper, Chip, Divider, Stack, TextField, Container, Card, InputAdornment } from '@mui/material';
-import { useRouter } from 'next/router';
+
 import axios from 'axios';
-import { useTheme } from '@mui/material/styles';
+
 import PageTitleWrapper from '@/components/PageTitleWrapper';
 import { styled } from '@mui/material/styles';
 import ClearIcon from '@mui/icons-material/Clear'; 
@@ -29,7 +29,7 @@ const BankerOverview = () => {
   const [filteredBankers, setFilteredBankers] = useState<Banker[]>([]);
   const [searchLocation, setSearchLocation] = useState('');
   const [searchBanker, setSearchBanker] = useState('');
-  const router = useRouter();
+
 
   useEffect(() => {
     axios
@@ -202,7 +202,7 @@ const TabsContainerWrapper = styled(Box)(({ theme }) => ({
 
 const LendersTasks = () => {
   const [currentTab, setCurrentTab] = useState<string>('overview');
-  const theme = useTheme();
+
 
   const tabs = [
     { value: 'overview', label: 'Bankers Directory' },
